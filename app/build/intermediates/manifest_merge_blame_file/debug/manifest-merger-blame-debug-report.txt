@@ -1,0 +1,291 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.khs.spcmeasure"
+4    android:versionCode="6"
+5    android:versionName="1.0.5" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="23" />
+9-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:7:5-67
+11-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:7:22-64
+12
+13    <!--
+14    TOTO remove if does not work - declare location permissions
+15    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+16    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+17    -->
+18
+19
+20    <!-- declare Bluetooth permissions -->
+21    <uses-permission android:name="android.permission.BLUETOOTH" />
+21-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:17:5-68
+21-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:17:22-65
+22    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+22-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:18:5-74
+22-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:18:22-71
+23
+24    <!-- ensure application is only available to devices which support Bluetooth Low Energy (BLE) -->
+25    <uses-feature
+25-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:21:5-23:35
+26        android:name="android:.hardware.bluetooth_le"
+26-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:22:9-54
+27        android:required="true" />
+27-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:23:9-32
+28    <!-- barcode scanning -->
+29    <uses-feature android:name="android.hardware.camera" />
+29-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:25:5-60
+29-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:25:19-57
+30
+31    <!--
+32     <uses-permission
+33        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+34        android:maxSdkVersion="18" />
+35    -->
+36    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+36-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:32:5-81
+36-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:32:22-78
+37    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+37-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:33:5-75
+37-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:33:22-72
+38    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+38-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:34:5-79
+38-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:34:22-76
+39    <uses-permission
+39-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:35:5-37:38
+40        android:name="android.permission.READ_EXTERNAL_STORAGE"
+40-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:36:9-64
+41        android:maxSdkVersion="18" />
+41-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:37:9-35
+42
+43    <!-- To auto-complete the email text field in the login form with the user's emails -->
+44    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+44-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:40:5-71
+44-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:40:22-68
+45    <uses-permission android:name="android.permission.READ_PROFILE" />
+45-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:41:5-71
+45-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:41:22-68
+46    <uses-permission android:name="android.permission.READ_CONTACTS" />
+46-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:42:5-72
+46-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:42:22-69
+47    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+47-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:43:5-72
+47-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:43:22-69
+48
+49    <application
+49-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:45:5-157:19
+50        android:allowBackup="true"
+50-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:46:9-35
+51        android:debuggable="true"
+52        android:icon="@drawable/ic_launcher"
+52-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:47:9-45
+53        android:label="@string/app_name"
+53-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:48:9-41
+54        android:testOnly="true"
+55        android:theme="@style/AppTheme" >
+55-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:49:9-40
+56        <service
+56-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:50:9-52:40
+57            android:name="com.khs.spcmeasure.service.SylvacBleService"
+57-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:51:13-53
+58            android:exported="false" />
+58-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:52:13-37
+59
+60        <activity
+60-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:54:9-63:20
+61            android:name="com.khs.spcmeasure.ui.SetupListActivity"
+61-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:55:13-49
+62            android:label="@string/app_name"
+62-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:56:13-45
+63            android:launchMode="singleTop" >
+63-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:57:13-43
+64            <intent-filter>
+64-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:58:13-62:29
+65                <action android:name="android.intent.action.MAIN" />
+65-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:59:17-69
+65-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:59:25-66
+66
+67                <category android:name="android.intent.category.LAUNCHER" />
+67-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:61:17-77
+67-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:61:27-74
+68            </intent-filter>
+69        </activity>
+70        <activity
+70-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:64:9-72:20
+71            android:name="com.khs.spcmeasure.ui.SetupImportActivity"
+71-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:65:13-51
+72            android:label="@string/title_activity_import_setup"
+72-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:66:13-64
+73            android:launchMode="singleTop"
+73-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:67:13-43
+74            android:parentActivityName="com.khs.spcmeasure.ui.SetupListActivity" >
+74-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:68:13-63
+75            <meta-data
+75-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:69:13-71:57
+76                android:name="android.support.PARENT_ACTIVITY"
+76-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:70:17-63
+77                android:value=".ui.SetupListActivity" />
+77-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:71:17-54
+78        </activity>
+79        <activity
+79-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:73:9-81:20
+80            android:name="com.khs.spcmeasure.ui.PieceListActivity"
+80-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:74:13-49
+81            android:label="@string/title_activity_piece_list"
+81-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:75:13-62
+82            android:launchMode="singleTop"
+82-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:76:13-43
+83            android:parentActivityName="com.khs.spcmeasure.ui.SetupListActivity" >
+83-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:77:13-63
+84            <meta-data
+84-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:69:13-71:57
+85                android:name="android.support.PARENT_ACTIVITY"
+85-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:70:17-63
+86                android:value=".ui.SetupListActivity" />
+86-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:71:17-54
+87        </activity>
+88        <activity
+88-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:82:9-90:20
+89            android:name="com.khs.spcmeasure.ui.FeatureReviewActivity"
+89-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:83:13-53
+90            android:label="@string/title_activity_feature_review"
+90-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:84:13-66
+91            android:launchMode="singleTop"
+91-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:85:13-43
+92            android:parentActivityName="com.khs.spcmeasure.ui.PieceListActivity" >
+92-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:86:13-63
+93            <meta-data
+93-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:69:13-71:57
+94                android:name="android.support.PARENT_ACTIVITY"
+94-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:70:17-63
+95                android:value=".ui.PieceListActivity" />
+95-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:71:17-54
+96        </activity>
+97        <activity
+97-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:91:9-99:20
+98            android:name="com.khs.spcmeasure.ui.FeatureActivity"
+98-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:92:13-47
+99            android:label="@string/title_activity_feature"
+99-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:93:13-59
+100            android:launchMode="singleTop"
+100-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:94:13-43
+101            android:parentActivityName="com.khs.spcmeasure.ui.FeatureReviewActivity" >
+101-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:95:13-67
+102            <meta-data
+102-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:69:13-71:57
+103                android:name="android.support.PARENT_ACTIVITY"
+103-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:70:17-63
+104                android:value=".ui.FeatureReviewActivity" />
+104-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:71:17-54
+105        </activity>
+106        <activity android:name="com.khs.spcmeasure.ui.SettingsActivity" >
+106-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:100:9-104:20
+106-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:100:19-54
+107            <meta-data
+107-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:69:13-71:57
+108                android:name="android.support.PARENT_ACTIVITY"
+108-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:70:17-63
+109                android:value=".ui.SetupListActivity" />
+109-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:71:17-54
+110        </activity>
+111
+112        <service
+112-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:106:9-109:40
+113            android:name="com.khs.spcmeasure.service.SimpleCodeService"
+113-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:107:13-54
+114            android:enabled="true"
+114-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:108:13-35
+115            android:exported="false" />
+115-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:109:13-37
+116        <service
+116-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:110:9-113:40
+117            android:name="com.khs.spcmeasure.service.SetupService"
+117-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:111:13-49
+118            android:enabled="true"
+118-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:112:13-35
+119            android:exported="false" />
+119-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:113:13-37
+120        <service
+120-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:114:9-117:40
+121            android:name="com.khs.spcmeasure.service.MeasurementService"
+121-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:115:13-55
+122            android:enabled="true"
+122-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:116:13-35
+123            android:exported="false" />
+123-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:117:13-37
+124        <service
+124-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:118:9-121:40
+125            android:name="com.khs.spcmeasure.service.PieceService"
+125-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:119:13-49
+126            android:enabled="true"
+126-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:120:13-35
+127            android:exported="false" />
+127-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:121:13-37
+128
+129        <activity
+129-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:123:9-130:20
+130            android:name="com.khs.spcmeasure.widget.LoginActivityOld"
+130-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:124:13-52
+131            android:label="@string/title_activity_login"
+131-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:125:13-57
+132            android:parentActivityName="com.khs.spcmeasure.ui.SetupListActivity" >
+132-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:126:13-63
+133            <meta-data
+133-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:69:13-71:57
+134                android:name="android.support.PARENT_ACTIVITY"
+134-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:70:17-63
+135                android:value=".ui.SetupListActivity" />
+135-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:71:17-54
+136        </activity>
+137        <activity
+137-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:131:9-134:71
+138            android:name="com.khs.spcmeasure.ui.LoginActivity"
+138-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:132:13-45
+139            android:label="@string/title_activity_login"
+139-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:133:13-57
+140            android:windowSoftInputMode="adjustResize|stateVisible" />
+140-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:134:13-68
+141
+142        <service
+142-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:136:9-138:40
+143            android:name="com.khs.spcmeasure.service.HistoryService"
+143-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:137:13-51
+144            android:exported="false" />
+144-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:138:13-37
+145
+146        <activity
+146-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:140:9-142:67
+147            android:name="com.khs.spcmeasure.ui.CheckUpdateActivity"
+147-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:141:13-51
+148            android:label="@string/text_version_check" />
+148-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:142:13-55
+149        <activity
+149-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:144:9-146:59
+150            android:name="com.khs.spcmeasure.ui.AboutActivity"
+150-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:145:13-45
+151            android:label="@string/text_about" />
+151-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:146:13-47
+152
+153        <receiver
+153-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:148:9-156:20
+154            android:name="com.khs.spcmeasure.receiver.VersionReceiver"
+154-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:149:13-53
+155            android:enabled="true"
+155-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:150:13-35
+156            android:exported="false" >
+156-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:151:13-37
+157            <intent-filter>
+157-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:152:13-155:29
+158                <action android:name="com.khs.spcmeasure.VERSION_NOT_OK" >
+158-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:153:17-154:26
+158-->C:\Users\mlees\StudioProjects\khsSpcMeasure\app\src\main\AndroidManifest.xml:153:25-73
+159                </action>
+160            </intent-filter>
+161        </receiver>
+162    </application>
+163
+164</manifest>
