@@ -1,4 +1,4 @@
-#Wed Nov 06 17:32:29 EST 2019
-base.0=C\:\\Users\\mlees\\StudioProjects\\khsSpcMeasure\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+#Wed Jan 01 15:05:09 EST 2020
+base.0=C\:\\Users\\Mark\\StudioProjects\\khsSpcMeasureA8\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

@@ -7,6 +7,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+
+// 01 Jan 2020 with API level 21+ added in permissions check logic
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
+
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -23,6 +33,16 @@ import com.khs.spcmeasure.service.SetupService;
 import com.khs.spcmeasure.service.SylvacBleService;
 import com.khs.spcmeasure.tasks.DeleteSetupTask;
 
+// Main app Activity
+// Setup List Activity
+
+// 01 Jan 2020 with API level 21+ added in permissions check logic in onCreate method to fix the following:
+// E/BluetoothLeScanner: fail to start le scan -
+// SecurityException thrown: java.lang.SecurityException:
+// Need ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION permission to get scan results
+// see:
+// https://github.com/android/connectivity-samples/issues/34
+//
 public class SetupListActivity extends Activity implements SetupListFragment.OnSetupListListener, DeleteSetupTask.OnDeleteSetupListener {
 
     private static final String TAG = "SetupListActivity";
@@ -52,6 +72,7 @@ public class SetupListActivity extends Activity implements SetupListFragment.OnS
 //    private IntentFilter mVersionFilter;
 //    private Handler mHandler;
 
+    @TargetApi(23)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
@@ -59,6 +80,20 @@ public class SetupListActivity extends Activity implements SetupListFragment.OnS
 
         // initialize shared preference to the default values - executed once only
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        // 01 Jan 2020 with API level 21+ added in permissions check logic
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)){
+                Toast.makeText(this, "The permission to get BLE location data is required", Toast.LENGTH_SHORT).show();
+            }else{
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                }
+            }
+        }else{
+            Toast.makeText(this, "Location permissions already granted", Toast.LENGTH_SHORT).show();
+        }
 
         // start the BLE service
         startBleService();

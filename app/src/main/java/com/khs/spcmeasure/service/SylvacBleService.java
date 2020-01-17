@@ -1,5 +1,6 @@
 package com.khs.spcmeasure.service;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -12,12 +13,16 @@ import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -49,6 +54,17 @@ import java.util.UUID;
 // I'll take your Android App to another dimension,
 // Pay close attention.
 //
+// 01 Jan 2020
+// The following methods were deprecated in API level 21:
+// mBluetoothAdapter.startLeScan
+// Hence need for build specific calls.
+// see:
+// https://stackoverflow.com/questions/28365260/detect-bluetooth-le-devices-in-android
+//
+
+// 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+// use TargetApi to avoid errors when calling methods added in API higher than min build API
+@TargetApi(21)
 public class SylvacBleService extends Service {	
 	private static final String TAG = "SylvacBleService";
 
@@ -64,13 +80,17 @@ public class SylvacBleService extends Service {
     // Stops scanning after 10 seconds.
     private static final long SCAN_PERIOD = 10000;
 	
-	private final IBinder myBinder = new MyLocalBinder();	
+	private final IBinder myBinder = new MyLocalBinder();
 
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothGatt mConnectedGatt;
     private BluetoothDevice mDevice;
     private String mDeviceAddress = null;
-    
+
+    // needed due to Bluetooth deprecated methods in API level 21
+    private int mApiVersion;
+    private BluetoothLeScanner mBluetoothScanner;
+
     private Handler mHandler;
     
     private NotificationManager mNotificationManager;
@@ -128,6 +148,10 @@ public class SylvacBleService extends Service {
         Log.d(TAG, "onCreate");
 		super.onCreate();
 
+        // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+		// get SDK version of the software currently running on this hardware device
+        mApiVersion = Build.VERSION.SDK_INT;
+
         // register for app closure local broadcast event
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mMessageReceiver, new IntentFilter(SetupListActivity.SPC_MEASURE_CLOSE));
@@ -161,7 +185,17 @@ public class SylvacBleService extends Service {
 
                 // No longer immediately to the device, this will be established when necessary
                 // connectDevice();
-	        }	        
+
+                // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+                // get BluetoothLeScanner object for Bluetooth LE scan operations.
+                Log.d(TAG, "mApiVersion = " + mApiVersion);
+                if (mApiVersion > Build.VERSION_CODES.KITKAT) {
+                    mBluetoothScanner = mBluetoothAdapter.getBluetoothLeScanner();
+                    Log.d(TAG, "mBluetoothScanner" + mBluetoothScanner);
+                    Log.d(TAG, "mScanCallback" + mScanCallback);
+                    Log.d(TAG, "mLeScanCallback" + mLeScanCallback);
+                }
+            }
         }
         
         return;
@@ -220,54 +254,92 @@ public class SylvacBleService extends Service {
 		public SylvacBleService getService() {
 			return SylvacBleService.this;
 		}
-	}	
-	
-	// scan for the Sylvac Ble device
+	}
+
+    // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+    // start scan for the Sylvac Ble device
+	private void startScanLeDevice() {
+        // does not work correctly
+        // UUID[] uuidService = { UUID.fromString(SylvacGattAttributes.DATA_RECEIVED_FROM_INSTRUMENT) };
+
+        mScanning = true;
+//            if (mBluetoothAdapter == null) {
+//            	mBluetoothAdapter = getBluetoothAdapter();
+//            }
+
+        // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+        // get BluetoothLeScanner object for Bluetooth LE scan operations.
+        if (mApiVersion > Build.VERSION_CODES.KITKAT) {
+            mBluetoothScanner.startScan(mScanCallback);
+        } else {
+            mBluetoothAdapter.startLeScan(mLeScanCallback);
+        }
+        // does not work correctly
+        // mBluetoothAdapter.startLeScan(uuidService, mLeScanCallback);
+        return;
+    };
+
+    // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+    // stop scan for the Sylvac Ble device
+    private void stopScanLeDevice() {
+        mScanning = false;
+
+        // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+        // get BluetoothLeScanner object for Bluetooth LE scan operations.
+        if (mApiVersion > Build.VERSION_CODES.KITKAT) {
+            mBluetoothScanner.stopScan(mScanCallback);
+        } else {
+            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+        }
+        return;
+    };
+
+    // scan for the Sylvac Ble device
     public void scanLeDevice(final boolean enable) {
+	    // The following methods were deprecated in API level 21:
+        // mBluetoothAdapter.startLeScan
+        // Hence need for build specific calls.
+        // see:
+        // https://stackoverflow.com/questions/28365260/detect-bluetooth-le-devices-in-android
+
         if (enable) {        	
             // Stops scanning after a pre-defined scan period.
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Log.i(TAG, "stopLeScan - delayed");
-                    mScanning = false;
-                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
+                    // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+                    // stop scan for the Sylvac Ble device
+                    stopScanLeDevice();
                 }
             }, SCAN_PERIOD);
 
-            // does not work correctly
-            // UUID[] uuidService = { UUID.fromString(SylvacGattAttributes.DATA_RECEIVED_FROM_INSTRUMENT) };
-
-            mScanning = true;
-//            if (mBluetoothAdapter == null) {
-//            	mBluetoothAdapter = getBluetoothAdapter();
-//            }
-            mBluetoothAdapter.startLeScan(mLeScanCallback);
-            // does not work correctly
-            // mBluetoothAdapter.startLeScan(uuidService, mLeScanCallback);
+            // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+            // start scan for the Sylvac Ble device
+            startScanLeDevice();
         } else {
             Log.i(TAG, "stopLeScan - immediate");
-            mScanning = false;
-            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+            // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+            // stop scan for the Sylvac Ble device
+            stopScanLeDevice();
         }
-    }	
-	
-	// Device scan callback.
-    private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
-        @Override
-        public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-            if (device != null) {
-                // check whether device name is for Sylvac device
-                String name = device.getName();
-                Log.d(TAG, "device name = " + name);
+    }
 
-                // ignore null
-                if (name == null) {
-                    return;
-                }
+    // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+    // connect the Sylvac Ble device
+    private void connectLeDevice(final BluetoothDevice device) {
+        if (device != null) {
+            // check whether device name is for Sylvac device
+            String name = device.getName();
+            Log.d(TAG, "device name = " + name);
 
-                if (name.equals(DEVICE_NAME_BONDED) || name.equals(DEVICE_NAME_UNBONDED)) {
-                    // TODO comment out later on
+            // ignore null
+            if (name == null) {
+                return;
+            }
+
+            if (name.equals(DEVICE_NAME_BONDED) || name.equals(DEVICE_NAME_UNBONDED)) {
+                // TODO comment out later on
 //                    Log.d(TAG, "fetch = " + device.fetchUuidsWithSdp());
 //                    Log.d(TAG, "UUID = " + device.getUuids());
 //                    Log.d(TAG, "Name = " + device.getName());
@@ -276,30 +348,60 @@ public class SylvacBleService extends Service {
 //                    Log.d(TAG, "Address = " + device.getAddress());
 //                    Log.d(TAG, "String = " + device.toString());
 
-                    // store device address
-                    mDeviceAddress = device.getAddress();
+                // store device address
+                mDeviceAddress = device.getAddress();
 
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.i(TAG, "onLeScan - runnable - connectGatt:" + mDeviceAddress);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i(TAG, "onLeScan - runnable - connectGatt:" + mDeviceAddress);
 //                            // immediately stop the BLE scan
 //                            scanLeDevice(false);
 
-                            // TODO remove later if not required
-                            //	                    	mConnectionState = ConnectionState.CONNECTING;
-                            //	                    	updateNotification();
+                        // TODO remove later if not required
+                        //	                    	mConnectionState = ConnectionState.CONNECTING;
+                        //	                    	updateNotification();
 
-
-                            // connect to the device
-                            connectGatt(device);
-                        }
-                    });
-                }
+                        // connect to the device
+                        connectGatt(device);
+                    }
+                });
             }
         }
+
+        return;
     };
-	
+
+	// Device scan callback.
+    private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
+        @Override
+        public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
+            // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+            // connect the Sylvac Ble device
+            connectLeDevice(device);
+            return;
+        }
+    };
+
+    // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
+    // Bluetooth LE scan callbacks. Scan results are reported using these callbacks
+    private ScanCallback mScanCallback = new ScanCallback() {
+        // Callback when a BLE advertisement has been found.
+        @Override
+        public void onScanResult(int callbackType, ScanResult result) {
+            super.onScanResult(callbackType, result);
+
+            // Returns the remote Bluetooth device identified by the Bluetooth device address.
+            BluetoothDevice device = result.getDevice();
+
+            // connect the Sylvac Ble device
+            connectLeDevice(device);
+
+            return;
+        }
+    };
+
+
     /*
      * In this callback, we've created a bit of a state machine to enforce that only
      * one characteristic be read or written at a time until all of our sensors
@@ -364,6 +466,7 @@ public class SylvacBleService extends Service {
         // remove top descriptor write and dequeue next BLE operation
         @Override
         public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+            // 01 Jan 2020 remove comment does NOT fix Samsung Tab-A tablet get Error
             // super.onDescriptorWrite(gatt, descriptor, status);
 
             // pop the item that we just finishing writing
@@ -373,6 +476,10 @@ public class SylvacBleService extends Service {
                 Log.d(TAG, "Callback: Wrote GATT Descriptor successfully.");
             }
             else{
+                // 01 Jan 2020 On Samsung Tab-A tablet get Error:
+                // D/SylvacBleService: Callback: Error writing GATT Descriptor: 133
+                // see:
+                // https://stackoverflow.com/questions/25888817/android-bluetooth-status-133-in-oncharacteristicwrite
                 Log.d(TAG, "Callback: Error writing GATT Descriptor: "+ status);
             }
 
@@ -721,6 +828,7 @@ public class SylvacBleService extends Service {
 
         //put the characteristic into the read queue
         success = characteristicWriteQueue.add(c);
+        Log.d(TAG, "characteristicWriteQueue.add - success: " + success);
 
         // execute BLE command immediately if there is nothing else queued up
         if((descriptorWriteQueue.size() == 0) && (characteristicReadQueue.size() == 0) && (characteristicWriteQueue.size() == 1)) {
@@ -763,6 +871,12 @@ public class SylvacBleService extends Service {
             Log.e(TAG, "characteristic not found");
             return false;
         }
+
+        // 01 Jan 2020 On Samsung Tab-A tablet get Error:
+        // D/SylvacBleService: Callback: Error writing GATT Descriptor: 133
+        // see:
+        // https://stackoverflow.com/questions/25888817/android-bluetooth-status-133-in-oncharacteristicwrite
+        gattChar.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
 
         // set the Characteristic
         if (gattChar.setValue(value) == false) {

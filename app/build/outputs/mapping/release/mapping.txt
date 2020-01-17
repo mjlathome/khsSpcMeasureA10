@@ -1,7 +1,7 @@
 # compiler: R8
-# compiler_version: 1.5.68
+# compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: cc30be8
+# pg_map_id: afdd62a
 android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback -> a.a.a.a.a:
 android.support.v4.app.ActivityCompat21 -> a.a.a.a.b:
     java.lang.reflect.Method android.support.v4.widget.PopupWindowCompatGingerbread.sSetWindowLayoutTypeMethod -> c
@@ -8199,24 +8199,26 @@ com.khs.spcmeasure.service.SimpleCodeService -> com.khs.spcmeasure.service.Simpl
 com.khs.spcmeasure.service.SylvacBleService -> com.khs.spcmeasure.service.SylvacBleService:
     java.lang.String mDeviceAddress -> g
     android.os.IBinder myBinder -> d
-    int mNotifyId -> l
-    android.bluetooth.BluetoothAdapter$LeScanCallback mLeScanCallback -> o
+    int mNotifyId -> m
     java.util.Queue characteristicWriteQueue -> c
-    java.lang.String mLastWrite -> k
-    com.khs.spcmeasure.library.ConnectionState mConnectionState -> m
     java.util.Queue characteristicReadQueue -> b
-    boolean mScanning -> j
+    int mApiVersion -> h
+    java.lang.String mLastWrite -> l
+    com.khs.spcmeasure.library.ConnectionState mConnectionState -> n
+    android.bluetooth.le.BluetoothLeScanner mBluetoothScanner -> i
+    android.app.NotificationManager mNotificationManager -> k
+    android.bluetooth.BluetoothGattCallback mGattCallback -> r
     java.util.Queue descriptorWriteQueue -> a
     android.bluetooth.BluetoothGatt mConnectedGatt -> f
-    android.bluetooth.BluetoothGattCallback mGattCallback -> p
+    android.bluetooth.le.ScanCallback mScanCallback -> q
+    android.content.BroadcastReceiver mMessageReceiver -> o
+    android.bluetooth.BluetoothAdapter$LeScanCallback mLeScanCallback -> p
+    android.os.Handler mHandler -> j
     android.bluetooth.BluetoothAdapter mBluetoothAdapter -> e
-    android.os.Handler mHandler -> h
-    android.app.NotificationManager mNotificationManager -> i
-    android.content.BroadcastReceiver mMessageReceiver -> n
-    1:1:boolean dequeueBleCommand():0:0 -> a
-    1:1:boolean access$1000(com.khs.spcmeasure.service.SylvacBleService):0 -> a
-    void access$1200(com.khs.spcmeasure.service.SylvacBleService,android.bluetooth.BluetoothGattCharacteristic) -> a
-    void access$800(com.khs.spcmeasure.service.SylvacBleService,java.util.List) -> a
+    void access$000(com.khs.spcmeasure.service.SylvacBleService) -> a
+    void access$1000(com.khs.spcmeasure.service.SylvacBleService,android.bluetooth.BluetoothGattCharacteristic) -> a
+    void access$300(com.khs.spcmeasure.service.SylvacBleService,android.bluetooth.BluetoothDevice) -> a
+    void access$600(com.khs.spcmeasure.service.SylvacBleService,java.util.List) -> a
     void broadcastUpdate(android.bluetooth.BluetoothGattCharacteristic) -> a
     java.lang.String byteArrayToString(byte[]) -> a
     void connectDevice() -> a
@@ -8224,53 +8226,59 @@ com.khs.spcmeasure.service.SylvacBleService -> com.khs.spcmeasure.service.Sylvac
     android.bluetooth.BluetoothGatt disconnectGatt(android.bluetooth.BluetoothGatt) -> a
     void displayGattServices(java.util.List) -> a
     boolean hasProperty(android.bluetooth.BluetoothGattCharacteristic,int) -> a
-    void scanLeDevice(boolean) -> a
-    2:2:boolean writeCharacteristic(android.bluetooth.BluetoothGattCharacteristic):0:0 -> a
-    2:2:boolean writeCharacteristic(java.lang.String):0 -> a
-    3:3:boolean writeCharacteristic(java.lang.String):0:0 -> a
+    1:1:void startScanLeDevice():0:0 -> a
+    1:1:void scanLeDevice(boolean):0 -> a
+    2:2:void scanLeDevice(boolean):0:0 -> a
+    3:3:boolean writeCharacteristic(android.bluetooth.BluetoothGattCharacteristic):0:0 -> a
+    3:3:boolean writeCharacteristic(java.lang.String):0 -> a
+    4:4:boolean writeCharacteristic(java.lang.String):0:0 -> a
     boolean writeGattDescriptor(android.bluetooth.BluetoothGattDescriptor) -> a
-    void access$700(com.khs.spcmeasure.service.SylvacBleService) -> b
+    void access$500(com.khs.spcmeasure.service.SylvacBleService) -> b
+    void connectLeDevice(android.bluetooth.BluetoothDevice) -> b
     void disconnectDevice() -> b
-    1:1:java.lang.String com.khs.spcmeasure.library.ConnectionState.getValue():0:0 -> c
-    1:1:void updateNotification():0 -> c
-    2:2:void updateNotification(java.lang.String):0:0 -> c
-    2:2:void updateNotification():0 -> c
-    3:3:android.app.Notification getNotification(java.lang.String):0:0 -> c
-    3:3:void updateNotification(java.lang.String):0 -> c
-    3:3:void updateNotification():0 -> c
-    4:4:android.support.v4.app.NotificationCompat$Builder android.support.v4.app.NotificationCompat$Builder.setSmallIcon(int):0:0 -> c
-    4:4:android.app.Notification getNotification(java.lang.String):0 -> c
-    4:4:void updateNotification(java.lang.String):0 -> c
-    4:4:void updateNotification():0 -> c
-    5:5:android.support.v4.app.NotificationCompat$Builder android.support.v4.app.NotificationCompat$Builder.setContentTitle(java.lang.CharSequence):0:0 -> c
-    5:5:android.app.Notification getNotification(java.lang.String):0 -> c
-    5:5:void updateNotification(java.lang.String):0 -> c
-    5:5:void updateNotification():0 -> c
-    6:6:android.support.v4.app.NotificationCompat$Builder android.support.v4.app.NotificationCompat$Builder.setContentText(java.lang.CharSequence):0:0 -> c
-    6:6:android.app.Notification getNotification(java.lang.String):0 -> c
-    6:6:void updateNotification(java.lang.String):0 -> c
-    6:6:void updateNotification():0 -> c
-    7:7:void android.support.v4.app.NotificationCompat$Builder.setFlag(int,boolean):0:0 -> c
-    7:7:android.support.v4.app.NotificationCompat$Builder android.support.v4.app.NotificationCompat$Builder.setOngoing(boolean):0 -> c
-    7:7:android.app.Notification getNotification(java.lang.String):0 -> c
-    7:7:void updateNotification(java.lang.String):0 -> c
-    7:7:void updateNotification():0 -> c
-    8:8:android.support.v4.app.NotificationCompat$NotificationCompatImpl android.support.v4.app.NotificationCompat.access$200():0:0 -> c
-    8:8:android.app.Notification android.support.v4.app.NotificationCompat$Builder.build():0 -> c
-    8:8:android.app.Notification getNotification(java.lang.String):0 -> c
-    8:8:void updateNotification(java.lang.String):0 -> c
-    8:8:void updateNotification():0 -> c
-    9:9:android.support.v4.app.NotificationCompat$BuilderExtender android.support.v4.app.NotificationCompat$Builder.getExtender():0:0 -> c
-    9:9:android.app.Notification android.support.v4.app.NotificationCompat$Builder.build():0 -> c
-    9:9:android.app.Notification getNotification(java.lang.String):0 -> c
-    9:9:void updateNotification(java.lang.String):0 -> c
-    9:9:void updateNotification():0 -> c
-    10:10:android.app.Notification android.support.v4.app.NotificationCompat$Builder.build():0:0 -> c
-    10:10:android.app.Notification getNotification(java.lang.String):0 -> c
-    10:10:void updateNotification(java.lang.String):0 -> c
-    10:10:void updateNotification():0 -> c
-    11:11:void updateNotification(java.lang.String):0:0 -> c
-    11:11:void updateNotification():0 -> c
+    1:1:boolean dequeueBleCommand():0:0 -> c
+    1:1:boolean access$800(com.khs.spcmeasure.service.SylvacBleService):0 -> c
+    void stopScanLeDevice() -> c
+    1:1:java.lang.String com.khs.spcmeasure.library.ConnectionState.getValue():0:0 -> d
+    1:1:void updateNotification():0 -> d
+    2:2:void updateNotification(java.lang.String):0:0 -> d
+    2:2:void updateNotification():0 -> d
+    3:3:android.app.Notification getNotification(java.lang.String):0:0 -> d
+    3:3:void updateNotification(java.lang.String):0 -> d
+    3:3:void updateNotification():0 -> d
+    4:4:android.support.v4.app.NotificationCompat$Builder android.support.v4.app.NotificationCompat$Builder.setSmallIcon(int):0:0 -> d
+    4:4:android.app.Notification getNotification(java.lang.String):0 -> d
+    4:4:void updateNotification(java.lang.String):0 -> d
+    4:4:void updateNotification():0 -> d
+    5:5:android.support.v4.app.NotificationCompat$Builder android.support.v4.app.NotificationCompat$Builder.setContentTitle(java.lang.CharSequence):0:0 -> d
+    5:5:android.app.Notification getNotification(java.lang.String):0 -> d
+    5:5:void updateNotification(java.lang.String):0 -> d
+    5:5:void updateNotification():0 -> d
+    6:6:android.support.v4.app.NotificationCompat$Builder android.support.v4.app.NotificationCompat$Builder.setContentText(java.lang.CharSequence):0:0 -> d
+    6:6:android.app.Notification getNotification(java.lang.String):0 -> d
+    6:6:void updateNotification(java.lang.String):0 -> d
+    6:6:void updateNotification():0 -> d
+    7:7:void android.support.v4.app.NotificationCompat$Builder.setFlag(int,boolean):0:0 -> d
+    7:7:android.support.v4.app.NotificationCompat$Builder android.support.v4.app.NotificationCompat$Builder.setOngoing(boolean):0 -> d
+    7:7:android.app.Notification getNotification(java.lang.String):0 -> d
+    7:7:void updateNotification(java.lang.String):0 -> d
+    7:7:void updateNotification():0 -> d
+    8:8:android.support.v4.app.NotificationCompat$NotificationCompatImpl android.support.v4.app.NotificationCompat.access$200():0:0 -> d
+    8:8:android.app.Notification android.support.v4.app.NotificationCompat$Builder.build():0 -> d
+    8:8:android.app.Notification getNotification(java.lang.String):0 -> d
+    8:8:void updateNotification(java.lang.String):0 -> d
+    8:8:void updateNotification():0 -> d
+    9:9:android.support.v4.app.NotificationCompat$BuilderExtender android.support.v4.app.NotificationCompat$Builder.getExtender():0:0 -> d
+    9:9:android.app.Notification android.support.v4.app.NotificationCompat$Builder.build():0 -> d
+    9:9:android.app.Notification getNotification(java.lang.String):0 -> d
+    9:9:void updateNotification(java.lang.String):0 -> d
+    9:9:void updateNotification():0 -> d
+    10:10:android.app.Notification android.support.v4.app.NotificationCompat$Builder.build():0:0 -> d
+    10:10:android.app.Notification getNotification(java.lang.String):0 -> d
+    10:10:void updateNotification(java.lang.String):0 -> d
+    10:10:void updateNotification():0 -> d
+    11:11:void updateNotification(java.lang.String):0:0 -> d
+    11:11:void updateNotification():0 -> d
     1:1:android.bluetooth.BluetoothAdapter getBluetoothAdapter():0:0 -> onCreate
     1:1:void onCreate():0 -> onCreate
     2:2:void onCreate():0:0 -> onCreate
@@ -8283,47 +8291,36 @@ com.khs.spcmeasure.service.SylvacBleService$1 -> com.khs.spcmeasure.service.Sylv
     com.khs.spcmeasure.service.SylvacBleService this$0 -> a
 com.khs.spcmeasure.service.SylvacBleService$2 -> com.khs.spcmeasure.service.SylvacBleService$b:
     com.khs.spcmeasure.service.SylvacBleService this$0 -> a
-    1:1:boolean com.khs.spcmeasure.service.SylvacBleService.access$002(com.khs.spcmeasure.service.SylvacBleService,boolean):0:0 -> run
-    1:1:void run():0 -> run
-    2:2:android.bluetooth.BluetoothAdapter com.khs.spcmeasure.service.SylvacBleService.access$200(com.khs.spcmeasure.service.SylvacBleService):0:0 -> run
-    2:2:void run():0 -> run
-    3:3:android.bluetooth.BluetoothAdapter$LeScanCallback com.khs.spcmeasure.service.SylvacBleService.access$100(com.khs.spcmeasure.service.SylvacBleService):0:0 -> run
-    3:3:void run():0 -> run
-    4:4:void run():0:0 -> run
 com.khs.spcmeasure.service.SylvacBleService$3 -> com.khs.spcmeasure.service.SylvacBleService$c:
-    com.khs.spcmeasure.service.SylvacBleService this$0 -> a
-    1:1:java.lang.String com.khs.spcmeasure.service.SylvacBleService.access$302(com.khs.spcmeasure.service.SylvacBleService,java.lang.String):0:0 -> onLeScan
-    1:1:void onLeScan(android.bluetooth.BluetoothDevice,int,byte[]):0 -> onLeScan
-    2:2:void onLeScan(android.bluetooth.BluetoothDevice,int,byte[]):0:0 -> onLeScan
-    3:3:android.os.Handler com.khs.spcmeasure.service.SylvacBleService.access$500(com.khs.spcmeasure.service.SylvacBleService):0:0 -> onLeScan
-    3:3:void onLeScan(android.bluetooth.BluetoothDevice,int,byte[]):0 -> onLeScan
-    4:4:void onLeScan(android.bluetooth.BluetoothDevice,int,byte[]):0:0 -> onLeScan
-com.khs.spcmeasure.service.SylvacBleService$3$1 -> com.khs.spcmeasure.service.SylvacBleService$c$a:
     android.bluetooth.BluetoothDevice val$device -> a
-    com.khs.spcmeasure.service.SylvacBleService$3 this$1 -> b
-    1:1:java.lang.String com.khs.spcmeasure.service.SylvacBleService.access$300(com.khs.spcmeasure.service.SylvacBleService):0:0 -> run
+    com.khs.spcmeasure.service.SylvacBleService this$0 -> b
+    1:1:java.lang.String com.khs.spcmeasure.service.SylvacBleService.access$100(com.khs.spcmeasure.service.SylvacBleService):0:0 -> run
     1:1:void run():0 -> run
     2:2:void run():0:0 -> run
-    3:3:void com.khs.spcmeasure.service.SylvacBleService.access$400(com.khs.spcmeasure.service.SylvacBleService,android.bluetooth.BluetoothDevice):0:0 -> run
+    3:3:void com.khs.spcmeasure.service.SylvacBleService.access$200(com.khs.spcmeasure.service.SylvacBleService,android.bluetooth.BluetoothDevice):0:0 -> run
     3:3:void run():0 -> run
 com.khs.spcmeasure.service.SylvacBleService$4 -> com.khs.spcmeasure.service.SylvacBleService$d:
     com.khs.spcmeasure.service.SylvacBleService this$0 -> a
-    1:1:java.util.Queue com.khs.spcmeasure.service.SylvacBleService.access$1100(com.khs.spcmeasure.service.SylvacBleService):0:0 -> onCharacteristicRead
+com.khs.spcmeasure.service.SylvacBleService$5 -> com.khs.spcmeasure.service.SylvacBleService$e:
+    com.khs.spcmeasure.service.SylvacBleService this$0 -> a
+com.khs.spcmeasure.service.SylvacBleService$6 -> com.khs.spcmeasure.service.SylvacBleService$f:
+    com.khs.spcmeasure.service.SylvacBleService this$0 -> a
+    1:1:java.util.Queue com.khs.spcmeasure.service.SylvacBleService.access$900(com.khs.spcmeasure.service.SylvacBleService):0:0 -> onCharacteristicRead
     1:1:void onCharacteristicRead(android.bluetooth.BluetoothGatt,android.bluetooth.BluetoothGattCharacteristic,int):0 -> onCharacteristicRead
     2:2:void onCharacteristicRead(android.bluetooth.BluetoothGatt,android.bluetooth.BluetoothGattCharacteristic,int):0:0 -> onCharacteristicRead
-    1:1:java.util.Queue com.khs.spcmeasure.service.SylvacBleService.access$1300(com.khs.spcmeasure.service.SylvacBleService):0:0 -> onCharacteristicWrite
+    1:1:java.util.Queue com.khs.spcmeasure.service.SylvacBleService.access$1100(com.khs.spcmeasure.service.SylvacBleService):0:0 -> onCharacteristicWrite
     1:1:void onCharacteristicWrite(android.bluetooth.BluetoothGatt,android.bluetooth.BluetoothGattCharacteristic,int):0 -> onCharacteristicWrite
     2:2:void onCharacteristicWrite(android.bluetooth.BluetoothGatt,android.bluetooth.BluetoothGattCharacteristic,int):0:0 -> onCharacteristicWrite
-    1:1:com.khs.spcmeasure.library.ConnectionState com.khs.spcmeasure.service.SylvacBleService.access$602(com.khs.spcmeasure.service.SylvacBleService,com.khs.spcmeasure.library.ConnectionState):0:0 -> onConnectionStateChange
+    1:1:com.khs.spcmeasure.library.ConnectionState com.khs.spcmeasure.service.SylvacBleService.access$402(com.khs.spcmeasure.service.SylvacBleService,com.khs.spcmeasure.library.ConnectionState):0:0 -> onConnectionStateChange
     1:1:void onConnectionStateChange(android.bluetooth.BluetoothGatt,int,int):0 -> onConnectionStateChange
     2:2:void onConnectionStateChange(android.bluetooth.BluetoothGatt,int,int):0:0 -> onConnectionStateChange
-    3:3:com.khs.spcmeasure.library.ConnectionState com.khs.spcmeasure.service.SylvacBleService.access$602(com.khs.spcmeasure.service.SylvacBleService,com.khs.spcmeasure.library.ConnectionState):0:0 -> onConnectionStateChange
+    3:3:com.khs.spcmeasure.library.ConnectionState com.khs.spcmeasure.service.SylvacBleService.access$402(com.khs.spcmeasure.service.SylvacBleService,com.khs.spcmeasure.library.ConnectionState):0:0 -> onConnectionStateChange
     3:3:void onConnectionStateChange(android.bluetooth.BluetoothGatt,int,int):0 -> onConnectionStateChange
     4:4:void onConnectionStateChange(android.bluetooth.BluetoothGatt,int,int):0:0 -> onConnectionStateChange
-    1:1:java.util.Queue com.khs.spcmeasure.service.SylvacBleService.access$900(com.khs.spcmeasure.service.SylvacBleService):0:0 -> onDescriptorWrite
+    1:1:java.util.Queue com.khs.spcmeasure.service.SylvacBleService.access$700(com.khs.spcmeasure.service.SylvacBleService):0:0 -> onDescriptorWrite
     1:1:void onDescriptorWrite(android.bluetooth.BluetoothGatt,android.bluetooth.BluetoothGattDescriptor,int):0 -> onDescriptorWrite
     2:2:void onDescriptorWrite(android.bluetooth.BluetoothGatt,android.bluetooth.BluetoothGattDescriptor,int):0:0 -> onDescriptorWrite
-com.khs.spcmeasure.service.SylvacBleService$MyLocalBinder -> com.khs.spcmeasure.service.SylvacBleService$e:
+com.khs.spcmeasure.service.SylvacBleService$MyLocalBinder -> com.khs.spcmeasure.service.SylvacBleService$g:
     com.khs.spcmeasure.service.SylvacBleService this$0 -> a
 com.khs.spcmeasure.tasks.CheckVersionTask -> b.d.a.g.a:
     android.content.Context mContext -> a
@@ -10112,12 +10109,20 @@ com.khs.spcmeasure.ui.SetupListActivity -> com.khs.spcmeasure.ui.SetupListActivi
     void onSetupSelected(java.lang.Long) -> a
     void startBleService() -> b
     void stopBleService() -> c
-    1:1:com.khs.spcmeasure.ui.SetupListFragment com.khs.spcmeasure.ui.SetupListFragment.newInstance():0:0 -> onCreate
+    1:1:int android.support.v4.content.ContextCompat.checkSelfPermission(android.content.Context,java.lang.String):0:0 -> onCreate
     1:1:void onCreate(android.os.Bundle):0 -> onCreate
-    2:2:void onCreate(android.os.Bundle):0:0 -> onCreate
-    3:3:boolean com.khs.spcmeasure.Globals.isVersionOk():0:0 -> onCreate
+    2:2:boolean android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale(android.app.Activity,java.lang.String):0:0 -> onCreate
+    2:2:void onCreate(android.os.Bundle):0 -> onCreate
+    3:3:boolean android.support.v4.app.ActivityCompatApi23.shouldShowRequestPermissionRationale(android.app.Activity,java.lang.String):0:0 -> onCreate
+    3:3:boolean android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale(android.app.Activity,java.lang.String):0 -> onCreate
     3:3:void onCreate(android.os.Bundle):0 -> onCreate
     4:4:void onCreate(android.os.Bundle):0:0 -> onCreate
+    5:5:com.khs.spcmeasure.ui.SetupListFragment com.khs.spcmeasure.ui.SetupListFragment.newInstance():0:0 -> onCreate
+    5:5:void onCreate(android.os.Bundle):0 -> onCreate
+    6:6:void onCreate(android.os.Bundle):0:0 -> onCreate
+    7:7:boolean com.khs.spcmeasure.Globals.isVersionOk():0:0 -> onCreate
+    7:7:void onCreate(android.os.Bundle):0 -> onCreate
+    8:8:void onCreate(android.os.Bundle):0:0 -> onCreate
     1:1:void broadcastUpdate(java.lang.String):0:0 -> onDestroy
     1:1:void onDestroy():0 -> onDestroy
     2:2:void onDestroy():0:0 -> onDestroy
