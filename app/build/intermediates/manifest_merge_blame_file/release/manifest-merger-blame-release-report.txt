@@ -7,7 +7,7 @@
 7    <uses-sdk
 8        android:minSdkVersion="19"
 8-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml
-9        android:targetSdkVersion="23" />
+9        android:targetSdkVersion="29" />
 9-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.INTERNET" />
@@ -90,14 +90,15 @@
 56-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:54:22-69
 57
 58    <application
-58-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:56:5-168:19
+58-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:56:5-169:19
 59        android:allowBackup="true"
 59-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:57:9-35
-60        android:icon="@drawable/ic_launcher"
-60-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:58:9-45
-61        android:label="@string/app_name"
-61-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:59:9-41
-62        android:testOnly="true"
+60        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+60-->[androidx.core:core:1.0.0] C:\Users\Mark\.gradle\caches\transforms-2\files-2.1\246153fc0686d4ff78c8961ca91329b7\core-1.0.0\AndroidManifest.xml:22:18-86
+61        android:icon="@drawable/ic_launcher"
+61-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:58:9-45
+62        android:label="@string/app_name"
+62-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:59:9-41
 63        android:theme="@style/AppTheme" >
 63-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:60:9-40
 64        <service
@@ -204,100 +205,103 @@
 117                android:value=".ui.SetupListActivity" />
 117-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:82:17-54
 118        </activity>
-119
-120        <service
-120-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:117:9-120:40
-121            android:name="com.khs.spcmeasure.service.SimpleCodeService"
-121-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:118:13-54
-122            android:enabled="true"
-122-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:119:13-35
-123            android:exported="false" />
-123-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:120:13-37
-124        <service
-124-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:121:9-124:40
-125            android:name="com.khs.spcmeasure.service.SetupService"
-125-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:122:13-49
-126            android:enabled="true"
-126-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:123:13-35
-127            android:exported="false" />
-127-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:124:13-37
-128        <service
-128-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:125:9-128:40
-129            android:name="com.khs.spcmeasure.service.MeasurementService"
-129-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:126:13-55
-130            android:enabled="true"
-130-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:127:13-35
-131            android:exported="false" />
-131-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:128:13-37
-132        <service
-132-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:129:9-132:40
-133            android:name="com.khs.spcmeasure.service.PieceService"
-133-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:130:13-49
-134            android:enabled="true"
-134-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:131:13-35
-135            android:exported="false" />
-135-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:132:13-37
-136
-137        <activity
-137-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:134:9-141:20
-138            android:name="com.khs.spcmeasure.widget.LoginActivityOld"
-138-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:135:13-52
-139            android:label="@string/title_activity_login"
-139-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:136:13-57
-140            android:parentActivityName="com.khs.spcmeasure.ui.SetupListActivity" >
-140-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:137:13-63
-141            <meta-data
-141-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:80:13-82:57
-142                android:name="android.support.PARENT_ACTIVITY"
-142-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:81:17-63
-143                android:value=".ui.SetupListActivity" />
-143-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:82:17-54
-144        </activity>
-145        <activity
-145-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:142:9-145:71
-146            android:name="com.khs.spcmeasure.ui.LoginActivity"
-146-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:143:13-45
-147            android:label="@string/title_activity_login"
-147-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:144:13-57
-148            android:windowSoftInputMode="adjustResize|stateVisible" />
-148-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:145:13-68
-149
-150        <service
-150-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:147:9-149:40
-151            android:name="com.khs.spcmeasure.service.HistoryService"
-151-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:148:13-51
-152            android:exported="false" />
-152-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:149:13-37
-153
-154        <activity
-154-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:151:9-153:67
-155            android:name="com.khs.spcmeasure.ui.CheckUpdateActivity"
-155-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:152:13-51
-156            android:label="@string/text_version_check" />
-156-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:153:13-55
-157        <activity
-157-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:155:9-157:59
-158            android:name="com.khs.spcmeasure.ui.AboutActivity"
-158-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:156:13-45
-159            android:label="@string/text_about" />
-159-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:157:13-47
-160
-161        <receiver
-161-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:159:9-167:20
-162            android:name="com.khs.spcmeasure.receiver.VersionReceiver"
-162-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:160:13-53
-163            android:enabled="true"
-163-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:161:13-35
-164            android:exported="false" >
-164-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:162:13-37
-165            <intent-filter>
-165-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:163:13-166:29
-166                <action android:name="com.khs.spcmeasure.VERSION_NOT_OK" >
-166-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:164:17-165:26
-166-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:164:25-73
-167                </action>
-168            </intent-filter>
-169        </receiver>
-170    </application>
-171
-172</manifest>
+119        <activity android:name="com.khs.spcmeasure.ui.ErrorDialogActivity" />
+119-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:116:9-69
+119-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:116:19-57
+120
+121        <service
+121-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:118:9-121:40
+122            android:name="com.khs.spcmeasure.service.SimpleCodeService"
+122-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:119:13-54
+123            android:enabled="true"
+123-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:120:13-35
+124            android:exported="false" />
+124-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:121:13-37
+125        <service
+125-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:122:9-125:40
+126            android:name="com.khs.spcmeasure.service.SetupService"
+126-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:123:13-49
+127            android:enabled="true"
+127-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:124:13-35
+128            android:exported="false" />
+128-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:125:13-37
+129        <service
+129-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:126:9-129:40
+130            android:name="com.khs.spcmeasure.service.MeasurementService"
+130-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:127:13-55
+131            android:enabled="true"
+131-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:128:13-35
+132            android:exported="false" />
+132-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:129:13-37
+133        <service
+133-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:130:9-133:40
+134            android:name="com.khs.spcmeasure.service.PieceService"
+134-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:131:13-49
+135            android:enabled="true"
+135-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:132:13-35
+136            android:exported="false" />
+136-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:133:13-37
+137
+138        <activity
+138-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:135:9-142:20
+139            android:name="com.khs.spcmeasure.widget.LoginActivityOld"
+139-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:136:13-52
+140            android:label="@string/title_activity_login"
+140-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:137:13-57
+141            android:parentActivityName="com.khs.spcmeasure.ui.SetupListActivity" >
+141-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:138:13-63
+142            <meta-data
+142-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:80:13-82:57
+143                android:name="android.support.PARENT_ACTIVITY"
+143-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:81:17-63
+144                android:value=".ui.SetupListActivity" />
+144-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:82:17-54
+145        </activity>
+146        <activity
+146-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:143:9-146:71
+147            android:name="com.khs.spcmeasure.ui.LoginActivity"
+147-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:144:13-45
+148            android:label="@string/title_activity_login"
+148-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:145:13-57
+149            android:windowSoftInputMode="adjustResize|stateVisible" />
+149-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:146:13-68
+150
+151        <service
+151-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:148:9-150:40
+152            android:name="com.khs.spcmeasure.service.HistoryService"
+152-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:149:13-51
+153            android:exported="false" />
+153-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:150:13-37
+154
+155        <activity
+155-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:152:9-154:67
+156            android:name="com.khs.spcmeasure.ui.CheckUpdateActivity"
+156-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:153:13-51
+157            android:label="@string/text_version_check" />
+157-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:154:13-55
+158        <activity
+158-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:156:9-158:59
+159            android:name="com.khs.spcmeasure.ui.AboutActivity"
+159-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:157:13-45
+160            android:label="@string/text_about" />
+160-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:158:13-47
+161
+162        <receiver
+162-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:160:9-168:20
+163            android:name="com.khs.spcmeasure.receiver.VersionReceiver"
+163-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:161:13-53
+164            android:enabled="true"
+164-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:162:13-35
+165            android:exported="false" >
+165-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:163:13-37
+166            <intent-filter>
+166-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:164:13-167:29
+167                <action android:name="com.khs.spcmeasure.VERSION_NOT_OK" >
+167-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:165:17-166:26
+167-->C:\Users\Mark\StudioProjects\khsSpcMeasureA8\app\src\main\AndroidManifest.xml:165:25-73
+168                </action>
+169            </intent-filter>
+170        </receiver>
+171    </application>
+172
+173</manifest>

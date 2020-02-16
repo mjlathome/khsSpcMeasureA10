@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.khs.spcmeasure.entity.Product;
 
-import junit.framework.Assert;
+/* import junit.framework.Assert; */
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class ProductAdapter extends ArrayAdapter<Product>{
 		super(context, resource);
 		mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mResource = resource;		
-		// TODO shoudn't resource be kept for use later on
+		// TODO shouldn't resource be kept for use later on
 	}
 
 	// resets adapter data to provided data.  called from ProductLoader

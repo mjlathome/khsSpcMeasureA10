@@ -2,7 +2,7 @@ package com.khs.spcmeasure.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.ActionProvider;
 import android.view.LayoutInflater;
@@ -19,7 +19,7 @@ import com.khs.spcmeasure.library.CollectStatus;
 
 public class CollectStatusActionProvider extends ActionProvider implements OnItemSelectedListener{
 	
-	private static final String TAG = "CollectStatusActionProvider";
+	private static final String TAG = "CollStatActProv";
 	
     // local broadcast intent actions
     public final static String ACTION_PREFIX = "com.khs.spcmeasure.widget.CollectStatusActionProvider_";

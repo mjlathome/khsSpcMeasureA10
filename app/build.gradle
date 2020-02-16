@@ -9,12 +9,12 @@ android {
             storePassword 'Kmx5571'
         }
     }
-    compileSdkVersion 23
+    compileSdkVersion 29
     defaultConfig {
         useLibrary 'org.apache.http.legacy'
         applicationId "com.khs.spcmeasure"
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 29
     }
     buildTypes {
         release {
@@ -36,10 +36,11 @@ android {
 
 dependencies {
     implementation 'com.androidplot:androidplot-core:0.6.1'
-    implementation 'com.android.support:support-v4:23.1.0'
-    implementation 'com.android.support:support-v13:23.1.0'
-    implementation 'com.android.support:support-annotations:23.1.0'
-    implementation 'com.android.support:appcompat-v7:23.1.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.annotation:annotation:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation "androidx.versionedparcelable:versionedparcelable:1.1.0"
     implementation 'com.google.zxing:core:3.2.1'
     implementation 'com.google.zxing:android-integration:3.2.1'
 }

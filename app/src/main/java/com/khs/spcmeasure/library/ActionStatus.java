@@ -29,7 +29,7 @@ public enum ActionStatus {
         this.value = value;
     }
 
-    // convert key into enumurated type
+    // convert key into enumerated type
     public static ActionStatus fromValue(String key) {
         ActionStatus actStat = null;
 

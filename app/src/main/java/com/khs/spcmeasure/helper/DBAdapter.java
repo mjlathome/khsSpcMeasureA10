@@ -82,18 +82,43 @@ public class DBAdapter {
 	public static final String KEY_ANSWER = "answer";
 	public static final String KEY_COMMENTS = "comments";
 
-    // sql table creates
+	// index names
+	public static final String INDEX_FEATURE_PROD_FEAT = "idx_" + TABLE_FEATURE + "_" + KEY_PROD_ID + "_" + KEY_FEAT_ID;
+
+	public static final String INDEX_LIMITS_PROD_FEAT = "idx_" + TABLE_LIMITS + "_" + KEY_PROD_ID + "_" + KEY_FEAT_ID;
+	public static final String INDEX_LIMITS_REV_TYPE = "idx_" + TABLE_LIMITS + "_" + KEY_LIMIT_REV + "_" + KEY_LIMIT_TYPE;
+
+	public static final String INDEX_PIECE_PROD = "idx_" + TABLE_PIECE + "_" + KEY_PROD_ID;
+	public static final String INDEX_PIECE_SUB_GRP_PIECE = "idx_" + TABLE_PIECE + "_" + KEY_SUB_GRP_ID + "_" + KEY_PIECE_NUM;
+	public static final String INDEX_PIECE_COLL_STAT = "idx_" + TABLE_PIECE + "_" + KEY_COLLECT_STATUS;
+
+	public static final String INDEX_MEAS_PIECE = "idx_" + TABLE_MEASUREMENT + "_" + KEY_PIECE_ID;
+	public static final String INDEX_MEAS_PROD_FEAT = "idx_" + TABLE_MEASUREMENT + "_" + KEY_PROD_ID + "_" + KEY_FEAT_ID;
+
+	public static final String INDEX_SIMPLE_CODE_TYPE_CODE = "idx_" + TABLE_SIMPLE_CODE + "_" + KEY_TYPE + "_" + KEY_CODE;
+	public static final String INDEX_SIMPLE_CODE_INT_CODE = "idx_" + TABLE_SIMPLE_CODE + "_" + KEY_INT_CODE;
+
+	public static final String INDEX_GAUGE_AUDIT_HDR_AUD_ID = "idx_" + TABLE_GAUGE_AUDIT_HDR + "_" + KEY_GAUGE_AUDIT_ID;
+	public static final String INDEX_GAUGE_AUDIT_HDR_COLL_STAT = "idx_" + TABLE_GAUGE_AUDIT_HDR + "_" + KEY_COLLECT_STATUS;
+	public static final String INDEX_GAUGE_AUDIT_HDR_PROD = "idx_" + TABLE_GAUGE_AUDIT_HDR + "_" + KEY_PROD_ID;
+
+	public static final String INDEX_GAUGE_AUDIT_DTL_HDR_ID = "idx_" + TABLE_GAUGE_AUDIT_DTL + "_" + KEY_HDR_ROWID;
+	public static final String INDEX_GAUGE_AUDIT_DTL_QUES_ID = "idx_" + TABLE_GAUGE_AUDIT_DTL + "_" + KEY_QUESTION_ID;
+
+	// sql table creates
     static final String CREATE_TABLE_PRODUCT = "CREATE TABLE " + TABLE_PRODUCT + "(" + 
 			KEY_ROWID + " INTEGER PRIMARY KEY UNIQUE NOT NULL," +
 			KEY_NAME + " TEXT," +
 			KEY_ACTIVE + " INTEGER," +
 			KEY_CUSTOMER + " TEXT," +
 			KEY_PROGRAM + " TEXT" + ")";
-	
+
+	// 16 Feb 2020 - see the following regarding primary and foreign keys:
+	// https://stackoverflow.com/questions/734689/sqlite-primary-key-on-multiple-columns
     static final String CREATE_TABLE_FEATURE = "CREATE TABLE " + TABLE_FEATURE + "(" + 
-			KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT," +    		
-			KEY_PROD_ID + " INTEGER KEY NOT NULL," +
-			KEY_FEAT_ID + " INTEGER KEY NOT NULL," +
+			KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+			KEY_PROD_ID + " INTEGER NOT NULL," +
+			KEY_FEAT_ID + " INTEGER NOT NULL," +
 			KEY_NAME + " TEXT," +
 			KEY_ACTIVE + " INTEGER," +
 			KEY_LIMIT_REV + " INTEGER," +
@@ -102,29 +127,29 @@ public class DBAdapter {
 
     static final String CREATE_TABLE_LIMITS = "CREATE TABLE " + TABLE_LIMITS + "(" + 
 			KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-			KEY_PROD_ID + " INTEGER KEY NOT NULL," +
-			KEY_FEAT_ID + " INTEGER KEY NOT NULL," +
-			KEY_LIMIT_REV + " INTEGER KEY NOT NULL," +
-			KEY_LIMIT_TYPE + " TEXT KEY NOT NULL," +
+			KEY_PROD_ID + " INTEGER NOT NULL," +
+			KEY_FEAT_ID + " INTEGER NOT NULL," +
+			KEY_LIMIT_REV + " INTEGER NOT NULL," +
+			KEY_LIMIT_TYPE + " TEXT NOT NULL," +
 			KEY_UPPER + " REAL," +
 			KEY_LOWER + " REAL" + ")";
-    
-    static final String CREATE_TABLE_PIECE = "CREATE TABLE " + TABLE_PIECE + "(" + 
+
+	static final String CREATE_TABLE_PIECE = "CREATE TABLE " + TABLE_PIECE + "(" +
 			KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-			KEY_PROD_ID + " INTEGER KEY NOT NULL," +
-			KEY_SUB_GRP_ID + " INTEGER KEY," +
-			KEY_PIECE_NUM + " INTEGER KEY NOT NULL," +
+			KEY_PROD_ID + " INTEGER NOT NULL," +
+			KEY_SUB_GRP_ID + " INTEGER," +
+			KEY_PIECE_NUM + " INTEGER NOT NULL," +
 			KEY_MODIFY_DATETIME + " TEXT," +
 			KEY_COLLECT_DATETIME + " TEXT," +
 			KEY_OPERATOR + " TEXT," +
 			KEY_LOT + " TEXT," +
-			KEY_COLLECT_STATUS + " TEXT KEY NOT NULL" + ")"; 
+			KEY_COLLECT_STATUS + " TEXT NOT NULL" + ")";
 
-    static final String CREATE_TABLE_MEASUREMENT = "CREATE TABLE " + TABLE_MEASUREMENT + "(" + 
+	static final String CREATE_TABLE_MEASUREMENT = "CREATE TABLE " + TABLE_MEASUREMENT + "(" +
 			KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-			KEY_PIECE_ID + " INTEGER KEY NOT NULL," +
-			KEY_PROD_ID + " INTEGER KEY NOT NULL," +
-			KEY_FEAT_ID + " INTEGER KEY NOT NULL," +
+			KEY_PIECE_ID + " INTEGER NOT NULL," +
+			KEY_PROD_ID + " INTEGER NOT NULL," +
+			KEY_FEAT_ID + " INTEGER NOT NULL," +
 			KEY_COLLECT_DATETIME + " TEXT," +
 			KEY_OPERATOR + " TEXT," +
 			KEY_VALUE + " REAL," +
@@ -136,26 +161,89 @@ public class DBAdapter {
 
     static final String CREATE_TABLE_SIMPLE_CODE = "CREATE TABLE " + TABLE_SIMPLE_CODE + "(" +
             KEY_ROWID + " INTEGER PRIMARY KEY UNIQUE NOT NULL," +
-            KEY_TYPE + " TEXT KEY NOT NULL," +
-            KEY_CODE + " TEXT KEY NOT NULL," +
+            KEY_TYPE + " TEXT NOT NULL," +
+            KEY_CODE + " TEXT NOT NULL," +
             KEY_DESCRIPTION + " TEXT," +
-            KEY_INT_CODE + " TEXT KEY," +
+            KEY_INT_CODE + " TEXT," +
             KEY_ACTIVE + " INTEGER" + ")";
 
 	static final String CREATE_TABLE_GAUGE_AUDIT_HDR = "CREATE TABLE " + TABLE_GAUGE_AUDIT_HDR + "(" +
 			KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-			KEY_GAUGE_AUDIT_ID + " INTEGER KEY," +
+			KEY_GAUGE_AUDIT_ID + " INTEGER," +
 			KEY_COLLECT_DATETIME + " TEXT," +
-			KEY_COLLECT_STATUS + " TEXT KEY NOT NULL," +
-			KEY_PROD_ID + " INTEGER KEY NOT NULL," +
+			KEY_COLLECT_STATUS + " TEXT NOT NULL," +
+			KEY_PROD_ID + " INTEGER NOT NULL," +
 			KEY_OPERATOR + " TEXT" + ")";
 
 	static final String CREATE_TABLE_GAUGE_AUDIT_DTL = "CREATE TABLE " + TABLE_GAUGE_AUDIT_DTL + "(" +
 			KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-			KEY_HDR_ROWID + " INTEGER KEY NOT NULL," +
-			KEY_QUESTION_ID + " INTEGER KEY NOT NULL," +
+			KEY_HDR_ROWID + " INTEGER NOT NULL," +
+			KEY_QUESTION_ID + " INTEGER NOT NULL," +
 			KEY_ANSWER + " INTEGER," +
 			KEY_COMMENTS + " TEXT" + ")";
+
+	// sql index creates
+	// 16 Feb 2020 - see the following regarding index usage:
+	// https://www.sqlitetutorial.net/sqlite-index/
+	static final String CREATE_INDEX_FEATURE_PROD_FEAT = "CREATE INDEX " +
+			INDEX_FEATURE_PROD_FEAT+ " ON " +
+			TABLE_FEATURE + "(" + KEY_PROD_ID + "," + KEY_FEAT_ID + ")";
+
+	static final String CREATE_INDEX_LIMITS_PROD_FEAT = "CREATE INDEX " +
+			INDEX_LIMITS_PROD_FEAT + " ON " +
+			TABLE_LIMITS + "(" + KEY_PROD_ID + "," + KEY_FEAT_ID + ")";
+
+	static final String CREATE_INDEX_LIMITS_REV_TYPE = "CREATE INDEX " +
+			INDEX_LIMITS_REV_TYPE + " ON " +
+			TABLE_LIMITS + "(" + KEY_LIMIT_REV + "," + KEY_LIMIT_TYPE + ")";
+
+	static final String CREATE_INDEX_PIECE_PROD = "CREATE INDEX " +
+			INDEX_PIECE_PROD + " ON " +
+			TABLE_LIMITS + "(" + KEY_PROD_ID + ")";
+
+	static final String CREATE_INDEX_PIECE_SUB_GRP_PIECE = "CREATE INDEX " +
+			INDEX_PIECE_SUB_GRP_PIECE + " ON " +
+			TABLE_LIMITS + "(" + KEY_SUB_GRP_ID + "," + KEY_PIECE_NUM + ")";
+
+	static final String CREATE_INDEX_PIECE_COLL_STAT = "CREATE INDEX " +
+			INDEX_PIECE_COLL_STAT + " ON " +
+			TABLE_LIMITS + "(" + KEY_COLLECT_STATUS + ")";
+
+	static final String CREATE_INDEX_MEAS_PIECE = "CREATE INDEX " +
+			INDEX_MEAS_PIECE + " ON " +
+			TABLE_MEASUREMENT + "(" + KEY_PIECE_ID + ")";
+
+	static final String CREATE_INDEX_MEAS_PROD_FEAT = "CREATE INDEX " +
+			INDEX_MEAS_PROD_FEAT + " ON " +
+			TABLE_MEASUREMENT + "(" + KEY_PROD_ID + "," + KEY_FEAT_ID + ")";
+
+	static final String CREATE_INDEX_SIMPLE_CODE_TYPE_CODE = "CREATE INDEX " +
+			INDEX_SIMPLE_CODE_TYPE_CODE + " ON " +
+			TABLE_SIMPLE_CODE + "(" + KEY_TYPE + "," + KEY_CODE + ")";
+
+	static final String CREATE_INDEX_SIMPLE_CODE_INT_CODE = "CREATE INDEX " +
+			INDEX_SIMPLE_CODE_INT_CODE + " ON " +
+			TABLE_SIMPLE_CODE + "(" + KEY_INT_CODE + ")";
+
+	static final String CREATE_INDEX_GAUGE_AUDIT_HDR_AUD_ID = "CREATE INDEX " +
+			INDEX_GAUGE_AUDIT_HDR_AUD_ID + " ON " +
+			TABLE_GAUGE_AUDIT_HDR + "(" + KEY_GAUGE_AUDIT_ID + ")";
+
+	static final String CREATE_INDEX_GAUGE_AUDIT_HDR_COLL_STAT = "CREATE INDEX " +
+			INDEX_GAUGE_AUDIT_HDR_COLL_STAT + " ON " +
+			TABLE_GAUGE_AUDIT_HDR + "(" + KEY_COLLECT_STATUS + ")";
+
+	static final String CREATE_INDEX_GAUGE_AUDIT_HDR_PROD = "CREATE INDEX " +
+			INDEX_GAUGE_AUDIT_HDR_PROD + " ON " +
+			TABLE_GAUGE_AUDIT_HDR + "(" + KEY_PROD_ID + ")";
+
+	static final String CREATE_INDEX_GAUGE_AUDIT_DTL_HDR_ID = "CREATE INDEX " +
+			INDEX_GAUGE_AUDIT_DTL_HDR_ID + " ON " +
+			TABLE_GAUGE_AUDIT_DTL + "(" + KEY_HDR_ROWID + ")";
+
+	static final String CREATE_INDEX_GAUGE_AUDIT_DTL_QUES_ID = "CREATE INDEX " +
+			INDEX_GAUGE_AUDIT_DTL_QUES_ID + " ON " +
+			TABLE_GAUGE_AUDIT_DTL + "(" + KEY_QUESTION_ID + ")";
 
 	// member variables
     final Context context;
@@ -189,6 +277,24 @@ public class DBAdapter {
                 db.execSQL(CREATE_TABLE_SIMPLE_CODE);
 				db.execSQL(CREATE_TABLE_GAUGE_AUDIT_HDR);
 				db.execSQL(CREATE_TABLE_GAUGE_AUDIT_DTL);
+
+				// create indexes
+				db.execSQL(CREATE_INDEX_FEATURE_PROD_FEAT);
+				db.execSQL(CREATE_INDEX_LIMITS_PROD_FEAT);
+				db.execSQL(CREATE_INDEX_LIMITS_REV_TYPE);
+				db.execSQL(CREATE_INDEX_PIECE_PROD);
+				db.execSQL(CREATE_INDEX_PIECE_SUB_GRP_PIECE);
+				db.execSQL(CREATE_INDEX_PIECE_COLL_STAT);
+				db.execSQL(CREATE_INDEX_MEAS_PIECE);
+				db.execSQL(CREATE_INDEX_MEAS_PROD_FEAT);
+				db.execSQL(CREATE_INDEX_SIMPLE_CODE_TYPE_CODE);
+				db.execSQL(CREATE_INDEX_SIMPLE_CODE_INT_CODE);
+				db.execSQL(CREATE_INDEX_GAUGE_AUDIT_HDR_AUD_ID);
+				db.execSQL(CREATE_INDEX_GAUGE_AUDIT_HDR_COLL_STAT);
+				db.execSQL(CREATE_INDEX_GAUGE_AUDIT_HDR_PROD);
+				db.execSQL(CREATE_INDEX_GAUGE_AUDIT_DTL_HDR_ID);
+				db.execSQL(CREATE_INDEX_GAUGE_AUDIT_DTL_QUES_ID);
+
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}

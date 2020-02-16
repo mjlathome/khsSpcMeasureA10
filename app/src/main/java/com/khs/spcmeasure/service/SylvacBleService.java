@@ -25,8 +25,8 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.khs.spcmeasure.library.ConnectionState;
@@ -883,6 +883,8 @@ public class SylvacBleService extends Service {
             Log.e(TAG, "characteristic set failed");
             return false;
         }
+
+        Log.d(TAG, "char value = " + new String( gattChar.getValue() ));
 
         // write the Characteristic
         if (writeCharacteristic(gattChar) == false) {

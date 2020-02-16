@@ -2,23 +2,20 @@ package com.khs.spcmeasure.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 
 // 01 Jan 2020 with API level 21+ added in permissions check logic
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.widget.Toast;
 
 import android.preference.PreferenceManager;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +24,6 @@ import com.khs.spcmeasure.Globals;
 import com.khs.spcmeasure.R;
 import com.khs.spcmeasure.helper.DBAdapter;
 import com.khs.spcmeasure.library.SecurityUtils;
-import com.khs.spcmeasure.receiver.VersionReceiver;
 import com.khs.spcmeasure.service.PieceService;
 import com.khs.spcmeasure.service.SetupService;
 import com.khs.spcmeasure.service.SylvacBleService;

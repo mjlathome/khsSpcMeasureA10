@@ -113,6 +113,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.SetupListActivity" />
         </activity>
+        <activity android:name=".ui.ErrorDialogActivity"></activity>
 
         <service
             android:name=".service.SimpleCodeService"

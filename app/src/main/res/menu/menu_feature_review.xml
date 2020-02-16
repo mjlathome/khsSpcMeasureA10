@@ -1,35 +1,36 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.FeatureReviewActivity">
     <item
         android:id="@+id/mnuClosePiece"
         android:icon="@drawable/ic_action_stop"
-        android:showAsAction="always"
+        app:showAsAction="always"
         android:title="Close Piece"
         android:enabled="true" />
     <item
         android:id="@+id/action_login"
         android:title="@string/text_login"
         android:orderInCategory="10"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"
         android:title="@string/text_logout"
         android:orderInCategory="20"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_check_update"
         android:title="@string/text_check_update"
         android:orderInCategory="101"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
         android:title="@string/text_about"
         android:orderInCategory="102"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
 </menu>

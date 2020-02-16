@@ -151,12 +151,12 @@ public class ImportSetupTask extends AsyncTask<Long, String, JSONObject>{
 					double upper 	 = jLimit.getDouble(TAG_UPPER);
 					double lower     = jLimit.getDouble(TAG_LOWER);
 					
-					Log.d("DEBUG limit type; upper; lower; LimitType = ", 
+					Log.d("lim ty; upp; low; LimTy",
 							limitType + "; " + upper + "; " + lower + "; " + LimitType.fromValue(limitType).getValue() );
 										
 					// create the Limit object
 					Limits limit = new Limits(product.getId(), feature.getFeatId(), limitRev, LimitType.fromValue(limitType), upper, lower);
-					Log.d("DEBUG limit type; upper; lower = ", limitType + "; " + upper + "; " + lower);
+					Log.d("lim ty; upp; low = ", limitType + "; " + upper + "; " + lower);
 
 					// update or insert Limit into the DB					
 					if (db.updateLimit(limit) == false) {

@@ -1,11 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.SetupImportFragment" >
 
 	<item 
 	    android:id="@+id/mnuImportSetup"
 	    android:icon="@drawable/ic_action_download" 
-        android:showAsAction="always" 
+        app:showAsAction="always"
         android:title="@string/text_import"
         android:enabled="true"/>	    		       
        
