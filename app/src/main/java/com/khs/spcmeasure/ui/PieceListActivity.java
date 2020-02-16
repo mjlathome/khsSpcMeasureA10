@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.khs.spcmeasure.R;
 import com.khs.spcmeasure.library.AlertUtils;
+import com.khs.spcmeasure.library.AlertUtils;
 import com.khs.spcmeasure.library.CollectStatus;
 import com.khs.spcmeasure.helper.DBAdapter;
 import com.khs.spcmeasure.library.SecurityUtils;
