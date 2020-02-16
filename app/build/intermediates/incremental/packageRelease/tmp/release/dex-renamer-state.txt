@@ -1,4 +1,0 @@
-#Sun Feb 16 08:53:35 EST 2020
-base.0=C\:\\Users\\Mark\\StudioProjects\\khsSpcMeasureA8\\app\\build\\intermediates\\transforms\\r8\\release\\0\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
