@@ -11,12 +11,8 @@
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="071fcb09-5234-4016-9e72-02fa80750ca4" name="Default Changelist" comment="Bluetooth fix for Android 6+">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/helper/DBAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/helper/DBAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/MeasurementFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/MeasurementFragment.java" afterDir="false" />
+    <list default="true" id="071fcb09-5234-4016-9e72-02fa80750ca4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SylvacBleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SylvacBleService.java" afterDir="false" />
     </list>
     <manually-removed-from-ignored>
       <directory path="$PROJECT_DIR$/app/build/intermediates/assets/" />
@@ -76,8 +72,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SylvacBleService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="879" lean-forward="true" selection-start-line="879" selection-end-line="879" />
+            <state relative-caret-position="282">
+              <caret line="880" column="80" selection-start-line="880" selection-start-column="80" selection-end-line="880" selection-end-column="80" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -167,9 +163,9 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_piece_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_feature_info.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_feature_review.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SylvacBleService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/MeasurementFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/helper/DBAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SylvacBleService.java" />
       </list>
     </option>
   </component>
@@ -374,7 +370,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579262158444</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Now uses Active Simple Codes for OOC Reason">
+      <created>1581897871990</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1581897871990</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -462,7 +465,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Bluetooth fix for Android 6+" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bluetooth fix for Android 6+" />
+    <MESSAGE value="Now uses Active Simple Codes for OOC Reason" />
+    <option name="LAST_COMMIT_MESSAGE" value="Now uses Active Simple Codes for OOC Reason" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/SetupListActivity.java">
@@ -828,8 +832,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SylvacBleService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="879" lean-forward="true" selection-start-line="879" selection-end-line="879" />
+        <state relative-caret-position="282">
+          <caret line="880" column="80" selection-start-line="880" selection-start-column="80" selection-end-line="880" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

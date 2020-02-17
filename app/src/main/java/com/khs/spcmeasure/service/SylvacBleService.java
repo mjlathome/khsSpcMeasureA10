@@ -876,7 +876,10 @@ public class SylvacBleService extends Service {
         // D/SylvacBleService: Callback: Error writing GATT Descriptor: 133
         // see:
         // https://stackoverflow.com/questions/25888817/android-bluetooth-status-133-in-oncharacteristicwrite
-        gattChar.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
+        // gattChar.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
+
+        // 2020 Feb 16 - now uses BLE Characteristic type WRITE_TYPE_NO_RESPONSE
+        gattChar.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
 
         // set the Characteristic
         if (gattChar.setValue(value) == false) {
