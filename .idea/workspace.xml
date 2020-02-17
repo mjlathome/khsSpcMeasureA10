@@ -12,52 +12,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="071fcb09-5234-4016-9e72-02fa80750ca4" name="Default Changelist" comment="Bluetooth fix for Android 6+">
-      <change afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_1_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v13_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_1_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_androidplot_androidplot_core_0_6_1_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_zxing_android_integration_3_2_1_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_zxing_core_3_2_1_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_http_legacy_android_29.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/khsSpcMeasureA8.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/PieceListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/PieceListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/helper/DBAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/helper/DBAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/MeasurementFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/MeasurementFragment.java" afterDir="false" />
     </list>
     <manually-removed-from-ignored>
       <directory path="$PROJECT_DIR$/app/build/intermediates/assets/" />
@@ -101,6 +60,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="ce11160b2987631c04" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -113,32 +73,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SylvacBleService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="14042">
-              <caret line="868" column="62" selection-start-line="868" selection-start-column="62" selection-end-line="868" selection-end-column="62" />
+            <state relative-caret-position="418">
+              <caret line="879" lean-forward="true" selection-start-line="879" selection-end-line="879" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/LoginActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="221" column="12" selection-start-line="221" selection-start-column="12" selection-end-line="221" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/library/SylvacGattAttributes.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="98" selection-start-line="15" selection-start-column="62" selection-end-line="15" selection-end-column="98" />
             </state>
           </provider>
         </entry>
@@ -221,12 +163,13 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/tasks/ImportSetupTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/library/ActionStatus.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/helper/ProductAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/helper/DBAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_piece_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_feature_info.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_feature_review.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SylvacBleService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/MeasurementFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/helper/DBAdapter.java" />
       </list>
     </option>
   </component>
@@ -241,9 +184,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -260,12 +201,6 @@
               <item name="khsSpcMeasureA8" type="b2602c69:ProjectViewProjectNode" />
               <item name="khsSpcMeasureA8" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="khsSpcMeasureA8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="khsSpcMeasureA8" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -291,6 +226,26 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="spcmeasure" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="khsSpcMeasureA8" type="b2602c69:ProjectViewProjectNode" />
+              <item name="khsSpcMeasureA8" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="spcmeasure" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="khsSpcMeasureA8" type="b2602c69:ProjectViewProjectNode" />
+              <item name="khsSpcMeasureA8" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="spcmeasure" type="462c0819:PsiDirectoryNode" />
+              <item name="helper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="khsSpcMeasureA8" type="b2602c69:ProjectViewProjectNode" />
@@ -306,6 +261,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -431,25 +388,26 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.50974023" side_tool="true" weight="0.23560767" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.46849757" visible="true" weight="0.23560767" />
-      <window_info id="Structure" order="2" sideWeight="0.5315024" side_tool="true" visible="true" weight="0.23560767" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.46365106" visible="true" weight="0.23560767" />
+      <window_info id="Structure" order="2" sideWeight="0.53634894" side_tool="true" visible="true" weight="0.23560767" />
       <window_info id="Build Variants" order="3" sideWeight="0.52747256" side_tool="true" weight="0.23560767" />
       <window_info id="Image Layers" order="4" />
       <window_info id="Designer" order="5" />
       <window_info id="Resources Explorer" order="6" sideWeight="0.49596122" weight="0.32995737" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" sideWeight="0.50974023" side_tool="true" weight="0.23560767" />
-      <window_info anchor="bottom" id="Inspection Results" order="0" sideWeight="0.4914712" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Inspection Results" order="0" sideWeight="0.4914712" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="1" sideWeight="0.49626866" weight="0.32936078" />
       <window_info anchor="bottom" id="Logcat" order="2" sideWeight="0.48614073" weight="0.33261105" />
       <window_info anchor="bottom" id="TODO" order="3" sideWeight="0.49946696" weight="0.32936078" />
-      <window_info anchor="bottom" id="Android Profiler" order="4" show_stripe_button="false" sideWeight="0.4989339" weight="0.32936078" />
-      <window_info anchor="bottom" id="Find" order="5" sideWeight="0.48933902" weight="0.32936078" />
+      <window_info anchor="bottom" id="Android Profiler" order="4" sideWeight="0.4989339" weight="0.32936078" />
+      <window_info anchor="bottom" id="Find" order="5" sideWeight="0.48773986" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Terminal" order="6" sideWeight="0.49733475" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50852877" side_tool="true" visible="true" weight="0.32936078" />
-      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.48933902" weight="0.30985916" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.51226014" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.48827294" weight="0.30985916" />
       <window_info anchor="bottom" id="Run" order="9" sideWeight="0.4989339" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="10" sideWeight="0.49840087" weight="0.32936078" />
       <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.4989339" weight="0.32936078" />
@@ -507,23 +465,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Bluetooth fix for Android 6+" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SimpleCodeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/SetupListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
@@ -734,13 +675,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/helper/DBAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="180" column="40" selection-start-line="180" selection-start-column="40" selection-end-line="180" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/content/res/Resources.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -791,12 +725,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="84" column="42" lean-forward="true" selection-start-line="84" selection-start-column="42" selection-end-line="84" selection-end-column="42" />
         </state>
       </provider>
+      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_piece_list.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -832,16 +766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SylvacBleService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14042">
-          <caret line="868" column="62" selection-start-line="868" selection-start-column="62" selection-end-line="868" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/library/SylvacGattAttributes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -851,8 +775,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
+        <state relative-caret-position="-1281">
           <caret line="221" column="12" selection-start-line="221" selection-start-column="12" selection-end-line="221" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SetupService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/tasks/MeasurementTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="130" column="80" selection-start-line="130" selection-start-column="80" selection-end-line="130" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/ui/MeasurementFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="419" column="12" lean-forward="true" selection-start-line="419" selection-start-column="12" selection-end-line="419" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/entity/SimpleCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-476">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/dao/SimpleCodeDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/helper/DBAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="1024" column="6" lean-forward="true" selection-start-line="1024" selection-start-column="6" selection-end-line="1024" selection-end-column="6" />
+          <folding>
+            <element signature="e#38709#38710#0" expanded="true" />
+            <element signature="e#38765#38766#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/khs/spcmeasure/service/SylvacBleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="879" lean-forward="true" selection-start-line="879" selection-end-line="879" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -417,7 +417,8 @@ public class MeasurementFragment extends Fragment implements AdapterView.OnItemS
             DBAdapter db = new DBAdapter(getActivity());
             db.open();
 
-            Cursor c = db.getAllSimpleCode(SimpleCode.TYPE_ACTION_CAUSE);
+            // 2020 Feb 16 - now extracts active Simple Codes
+            Cursor c = db.getActiveSimpleCode(SimpleCode.TYPE_ACTION_CAUSE);
 
             // populate spinner for Collect Status and setup handler
             if (c.getCount() > 0) {

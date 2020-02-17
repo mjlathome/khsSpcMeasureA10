@@ -1024,6 +1024,16 @@ public class DBAdapter {
         return db.rawQuery(selectQuery, null);
     };
 
+	// 2020 Feb 16 - now extracts active Simple Codes
+	// get active Simple Code for type
+	public Cursor getActiveSimpleCode(String type) {
+		// select query
+		String selectQuery = "SELECT * FROM " + TABLE_SIMPLE_CODE + " WHERE " + KEY_TYPE + " = '" + type +
+				"' AND " + KEY_ACTIVE + "='1' ORDER BY " + KEY_CODE;
+
+		return db.rawQuery(selectQuery, null);
+	};
+
     // get single Simple Code
     public Cursor getSimpleCode(long rowId) {
         Cursor c = db.query(TABLE_SIMPLE_CODE,
