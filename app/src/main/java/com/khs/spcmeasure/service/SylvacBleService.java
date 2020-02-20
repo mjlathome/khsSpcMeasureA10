@@ -65,8 +65,15 @@ import java.util.UUID;
 // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
 // use TargetApi to avoid errors when calling methods added in API higher than min build API
 @TargetApi(21)
-public class SylvacBleService extends Service {	
+public class SylvacBleService extends Service {
 	private static final String TAG = "SylvacBleService";
+
+    // 17 Feb 2020 Bluetooth Gatt disconnect with status 133
+    // see:
+    // https://stackoverflow.com/questions/25330938/android-bluetoothgatt-status-133-register-callback
+    // https://android.jlelse.eu/lessons-for-first-time-android-bluetooth-le-developers-i-learned-the-hard-way-fee07646624
+    private static boolean gatt_status_133 = false;
+    final Handler handler = new Handler();
 
     // queue read/write requests
     private Queue<BluetoothGattDescriptor> descriptorWriteQueue = new LinkedList<BluetoothGattDescriptor>();
@@ -79,7 +86,8 @@ public class SylvacBleService extends Service {
 	
     // Stops scanning after 10 seconds.
     private static final long SCAN_PERIOD = 10000;
-	
+    private static final long DELAY_GATT_CONN = 1000;
+
 	private final IBinder myBinder = new MyLocalBinder();
 
     private BluetoothAdapter mBluetoothAdapter;
@@ -277,7 +285,7 @@ public class SylvacBleService extends Service {
         // does not work correctly
         // mBluetoothAdapter.startLeScan(uuidService, mLeScanCallback);
         return;
-    };
+    }
 
     // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
     // stop scan for the Sylvac Ble device
@@ -292,7 +300,7 @@ public class SylvacBleService extends Service {
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
         }
         return;
-    };
+    }
 
     // scan for the Sylvac Ble device
     public void scanLeDevice(final boolean enable) {
@@ -351,7 +359,7 @@ public class SylvacBleService extends Service {
                 // store device address
                 mDeviceAddress = device.getAddress();
 
-                mHandler.post(new Runnable() {
+                mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         Log.i(TAG, "onLeScan - runnable - connectGatt:" + mDeviceAddress);
@@ -365,12 +373,12 @@ public class SylvacBleService extends Service {
                         // connect to the device
                         connectGatt(device);
                     }
-                });
+                }, DELAY_GATT_CONN);
             }
         }
 
         return;
-    };
+    }
 
 	// Device scan callback.
     private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
@@ -421,6 +429,7 @@ public class SylvacBleService extends Service {
                     break;
                 case BluetoothProfile.STATE_DISCONNECTED:
                     Log.i(TAG, "gattCallback - STATE_DISCONNECTED");
+
                     mConnectionState = ConnectionState.DISCONNECTED;
                     // disconnect gatt called earlier
                     // mConnectedGatt = disconnectGatt(gatt);
@@ -471,6 +480,9 @@ public class SylvacBleService extends Service {
 
             // pop the item that we just finishing writing
             descriptorWriteQueue.remove();
+
+            Log.d(TAG, "Callback: GATT - " + gatt.getDevice());
+            Log.d(TAG, "Callback: Descriptor - " + descriptor.getUuid());
 
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 Log.d(TAG, "Callback: Wrote GATT Descriptor successfully.");
@@ -619,6 +631,7 @@ public class SylvacBleService extends Service {
     }
 
     // connect to the gatt
+    @TargetApi(23)
     private void connectGatt(final BluetoothDevice device) {
         // TODO comment out later on
 //        Log.d(TAG, "connectGatt: fetch = " + device.fetchUuidsWithSdp());
@@ -634,7 +647,12 @@ public class SylvacBleService extends Service {
             mConnectionState = ConnectionState.CONNECTING;
             updateNotification();
 
-            mConnectedGatt = device.connectGatt(SylvacBleService.this, false, mGattCallback);
+            // 01 Jan 2020 for API 23 (i.e. Marshmallow 6+) preferred transport
+            if (mApiVersion >= Build.VERSION_CODES.M) {
+                mConnectedGatt = device.connectGatt(SylvacBleService.this, false, mGattCallback, BluetoothDevice.TRANSPORT_LE);
+            } else {
+                mConnectedGatt = device.connectGatt(SylvacBleService.this, false, mGattCallback);
+            }
 
             // stop the BLE scan
             scanLeDevice(false);
@@ -882,7 +900,7 @@ public class SylvacBleService extends Service {
         gattChar.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
 
         // set the Characteristic
-        if (gattChar.setValue(value) == false) {
+        if (!gattChar.setValue(value)) {
             Log.e(TAG, "characteristic set failed");
             return false;
         }
@@ -890,7 +908,7 @@ public class SylvacBleService extends Service {
         Log.d(TAG, "char value = " + new String( gattChar.getValue() ));
 
         // write the Characteristic
-        if (writeCharacteristic(gattChar) == false) {
+        if (!writeCharacteristic(gattChar)) {
             Log.e(TAG, "characteristic write failed");
             return false;
         }
