@@ -1,17 +1,20 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+// 23 Mar 2020 - AndroidX
+// import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * Created by Mark on 05/16/2015.
  * handles version check and update action
  */
-public class CheckUpdateActivity extends Activity {
+public class CheckUpdateActivity extends AppCompatActivity {
     private final String TAG = "CheckUpdateActivity";
 
     private static final String TAG_CHECK_UPDATE_FRAGMENT = "check_update_fragment";
@@ -47,7 +50,7 @@ public class CheckUpdateActivity extends Activity {
         getArguments(savedInstanceState);
 
         // show the Up button in the action bar.
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // look for an existing check update fragment
         FragmentManager fm = getFragmentManager();

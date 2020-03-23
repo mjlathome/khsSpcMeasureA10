@@ -5,11 +5,24 @@ package com.khs.spcmeasure.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListFragment;
-import android.app.LoaderManager;
+
+// 23 Mar 2020 - AndroidX
+// was: import android.app.ListFragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.ListFragment;
+
+// 23 Mar 2020 - AndroidX
+// was: import android.app.LoaderManager;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Loader;
+
+// 23 Mar 2020 - AndroidX
+// was: import android.content.Loader;
+import androidx.loader.content.Loader;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -163,7 +176,7 @@ public class SetupImportFragment extends ListFragment
         }
         return true;
 	}
-	
+
 	@Override
 	public Loader<List<Product>> onCreateLoader(int id, Bundle args) {
         // This is called when a new Loader needs to be created.  This
@@ -172,22 +185,22 @@ public class SetupImportFragment extends ListFragment
 	}
 
 	@Override
-	public void onLoadFinished(Loader<List<Product>> loader, List<Product> data) {
-        // Set the new data in the adapter.
-        mAdapter.setData(data);
+	public void onLoadFinished(@NonNull androidx.loader.content.Loader<List<Product>> loader, List<Product> data) {
+		// Set the new data in the adapter.
+		mAdapter.setData(data);
 
-        // The list should now be shown.
-        if (isResumed()) {
-            setListShown(true);
-        } else {
-            setListShownNoAnimation(true);
-        }			
+		// The list should now be shown.
+		if (isResumed()) {
+			setListShown(true);
+		} else {
+			setListShownNoAnimation(true);
+		}
 	}
 
 	@Override
-	public void onLoaderReset(Loader<List<Product>> loader) {
-        // Clear the data in the adapter.
-        mAdapter.setData(null);		
+	public void onLoaderReset(@NonNull androidx.loader.content.Loader<List<Product>> loader) {
+		// Clear the data in the adapter.
+		mAdapter.setData(null);
 	}
 
 	@Override
