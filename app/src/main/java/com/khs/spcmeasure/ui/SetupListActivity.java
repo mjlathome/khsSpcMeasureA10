@@ -1,7 +1,9 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
-import android.app.Fragment;
+// 23 Mar 2020 - AndroidX
+//import android.app.Activity;
+//import android.app.AppComponentFactory;
+//import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,12 +12,19 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.Manifest;
 import android.content.pm.PackageManager;
+
+// 23 Mar 2020 - AndroidX
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.widget.Toast;
 
 import android.preference.PreferenceManager;
+
+// 23 Mar 2020 - AndroidX
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,7 +48,7 @@ import com.khs.spcmeasure.tasks.DeleteSetupTask;
 // see:
 // https://github.com/android/connectivity-samples/issues/34
 //
-public class SetupListActivity extends Activity implements SetupListFragment.OnSetupListListener, DeleteSetupTask.OnDeleteSetupListener {
+public class SetupListActivity extends AppCompatActivity implements SetupListFragment.OnSetupListListener, DeleteSetupTask.OnDeleteSetupListener {
 
     private static final String TAG = "SetupListActivity";
 
@@ -102,7 +111,8 @@ public class SetupListActivity extends Activity implements SetupListFragment.OnS
         setContentView(R.layout.activity_setup_list);
         if (savedInstanceState == null) {
             mSetupListFrag = SetupListFragment.newInstance();
-            getFragmentManager().beginTransaction()
+            // 21 Feb 2020 - now uses getSupportFragmentManager()
+            getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, mSetupListFrag)
                     .commit();
         }
@@ -196,8 +206,9 @@ public class SetupListActivity extends Activity implements SetupListFragment.OnS
         super.onDestroy();
     }
 
+    // 23 Mar 2020 - AndroidX
     @Override
-    public void onAttachFragment(Fragment fragment) {
+    public void onAttachFragment(androidx.fragment.app.Fragment fragment) {
         super.onAttachFragment(fragment);
 
         // keep track of fragment upon orientation change

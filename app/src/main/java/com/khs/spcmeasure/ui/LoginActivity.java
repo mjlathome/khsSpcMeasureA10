@@ -3,21 +3,10 @@ package com.khs.spcmeasure.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.BroadcastReceiver;
-import android.content.CursorLoader;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
+
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -25,33 +14,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.khs.spcmeasure.Globals;
+// 23 Mar 2020 - AndroidX
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.khs.spcmeasure.R;
 import com.khs.spcmeasure.library.AlertUtils;
 import com.khs.spcmeasure.library.JSONParser;
 import com.khs.spcmeasure.library.NetworkUtils;
 import com.khs.spcmeasure.library.SecurityUtils;
-import com.khs.spcmeasure.library.VersionUtils;
-import com.khs.spcmeasure.receiver.VersionReceiver;
-import com.khs.spcmeasure.service.SimpleCodeService;
-import com.khs.spcmeasure.tasks.CheckVersionTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
 
@@ -79,7 +62,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         // show the Up button in the action bar.
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.txtUsername);

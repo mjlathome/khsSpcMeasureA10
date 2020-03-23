@@ -2,7 +2,11 @@ package com.khs.spcmeasure.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListFragment;
+
+// 23 Mar 2020 - AndroidX
+// import android.app.ListFragment;
+import androidx.fragment.app.ListFragment;
+
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;

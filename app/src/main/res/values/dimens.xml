@@ -12,7 +12,6 @@
     <!-- custom text sizes entered base upon:
     http://stackoverflow.com/questions/5611411/what-is-the-default-text-size-on-android
     -->
-    <dimen name="text_small">14sp</dimen>
     <dimen name="text_medium">18sp</dimen>
     <dimen name="text_large">22sp</dimen>
     <dimen name="text_huge">26sp</dimen>
@@ -20,7 +19,6 @@
     <!-- AndroidPlot dimensions as per QuickStart tutorial
     http://androidplot.com/docs/quickstart/
     -->
-    <dimen name="pie_segment_label_font_size">10dp</dimen>
     <dimen name="title_font_size">20dp</dimen>
     <dimen name="domain_label_font_size">13dp</dimen>
     <dimen name="range_label_font_size">13dp</dimen>

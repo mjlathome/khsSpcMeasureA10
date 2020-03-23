@@ -1,6 +1,9 @@
 package com.khs.spcmeasure.helper;
 
-import android.content.AsyncTaskLoader;
+// 23 Mar 2020 - AndroidX
+// was: import android.content.AsyncTaskLoader;
+import androidx.loader.content.AsyncTaskLoader;
+
 import android.content.Context;
 import android.util.Log;
 

@@ -1,12 +1,17 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+// 23 Mar 2020 - AndroidX
+// was: import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+
+// 23 Mar 2020 - AndroidX
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +23,7 @@ import com.khs.spcmeasure.library.ActionStatus;
 import com.khs.spcmeasure.library.SecurityUtils;
 import com.khs.spcmeasure.service.SetupService;
 
-public class SetupImportActivity extends Activity {
+public class SetupImportActivity extends AppCompatActivity {
 
 	private static final String TAG = "SetupImportActivity";
 
@@ -90,7 +95,7 @@ public class SetupImportActivity extends Activity {
         setContentView(R.layout.activity_setup_import);
 
         if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
+			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new SetupImportFragment()).commit();
 		}				
 	}
