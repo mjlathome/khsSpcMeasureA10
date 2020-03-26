@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.khs.spcmeasure.Globals;
 import com.khs.spcmeasure.helper.DBAdapter;
 import com.khs.spcmeasure.R;
 import com.khs.spcmeasure.entity.SimpleCode;
@@ -19,7 +20,9 @@ public class ImportSimpleCodeTask extends AsyncTask<String, String, JSONObject>{
 
 	private Context mContext;
 
-    private static String url = "http://thor.kmx.cosma.com/spc/get_simple_code.php?type=";
+	// 26 Mar 2020 - fixed urls
+    // private static String url = "http://thor.kmx.cosma.com/spc/get_simple_code.php?type=";
+	private static String url = Globals.BASS_URL + "spc/get_simple_code.php?type=";
 
 	//JSON Node Names
 	private static final String TAG_SUCCESS = "success";

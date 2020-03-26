@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.khs.spcmeasure.Globals;
 import com.khs.spcmeasure.helper.DBAdapter;
 import com.khs.spcmeasure.entity.Piece;
 import com.khs.spcmeasure.library.CollectStatus;
@@ -23,7 +24,10 @@ public class ExportMeasTask extends AsyncTask<Long, JSONObject, Integer>{
 	private static final String TAG = "ExportMeasTask";
 
 	// private static String url = "http://10.35.33.58/spc/save_measurement.php";
-	private static String url = "http://thor.kmx.cosma.com/spc/save_measurements.php";	
+	// 26 Mar 2020 - fixed urls
+	// private static String url = "http://thor.kmx.cosma.com/spc/save_measurements.php";
+	private static String url = Globals.BASS_URL + "spc/save_measurements.php";
+
 	// json node names
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_MESSAGE = "message";

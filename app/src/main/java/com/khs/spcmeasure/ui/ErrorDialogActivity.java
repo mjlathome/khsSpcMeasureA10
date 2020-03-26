@@ -1,6 +1,9 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+// 24 Mar 2020 - AndroidX
+// import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,7 +11,7 @@ import android.os.Bundle;
 
 import com.khs.spcmeasure.library.AlertUtils;
 
-public class ErrorDialogActivity extends Activity{
+public class ErrorDialogActivity extends AppCompatActivity{
 
 	public static final String EXTRA_MESSAGE = "MESSAGE";
 	

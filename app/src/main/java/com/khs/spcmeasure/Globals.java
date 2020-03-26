@@ -8,6 +8,9 @@ package com.khs.spcmeasure;
 public class Globals{
     private static Globals instance;
 
+    // 26 Mar 2020 - constant values
+    public static final String BASS_URL = "http://thor.magna.global/";
+
     // global variables
     private boolean versionOk = false;  // assume version is not ok
     private int latestCode = -1;

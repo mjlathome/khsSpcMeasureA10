@@ -22,6 +22,7 @@ import android.widget.TextView;
 // 23 Mar 2020 - AndroidX
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.khs.spcmeasure.Globals;
 import com.khs.spcmeasure.R;
 import com.khs.spcmeasure.library.AlertUtils;
 import com.khs.spcmeasure.library.JSONParser;
@@ -41,7 +42,9 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG_LDAP_AUTH  = "ldapAuth";
     private static final String TAG_CAN_ACCESS = "canAccess";
 
-    private static String url = "http://thor.kmx.cosma.com/spc/spc_measure_login.php";
+    // 26 Mar 2020 - fixed urls
+    // private static String url = "http://thor.kmx.cosma.com/spc/spc_measure_login.php";
+    private static String url = Globals.BASS_URL + "spc/spc_measure_login.php";
 
     private final int MIN_PSWD_LEN = 8;
 

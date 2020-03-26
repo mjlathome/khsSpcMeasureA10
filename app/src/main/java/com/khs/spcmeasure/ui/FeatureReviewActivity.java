@@ -1,6 +1,8 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+// 24 Mar 2020 - AndroidX
+// import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.core.app.NavUtils;
@@ -14,9 +16,11 @@ import com.khs.spcmeasure.library.AlertUtils;
 import com.khs.spcmeasure.helper.DBAdapter;
 import com.khs.spcmeasure.library.SecurityUtils;
 
+import java.util.Objects;
+
 // TODO handle Action Bar menu Up button - see Stack Overflow
 
-public class FeatureReviewActivity extends Activity implements
+public class FeatureReviewActivity extends AppCompatActivity implements
         FeatureReviewFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "FeatureReviewActivity";
@@ -35,7 +39,19 @@ public class FeatureReviewActivity extends Activity implements
         setContentView(R.layout.activity_feature_review);
 
         // show the Up button in the action bar.
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        // 25 Mar 2020 - AndroidX
+        // getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // 25 Mar 2020 - AndroidX
+        // added null try/catch and Objects.requireNonNull.
+        // now uses getSupportActionBar() was getActionBar()
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        } catch (NullPointerException e) {
+            throw new NullPointerException(this.toString()
+                    + " getSupportActionBar() was NULL");
+        }
 
         // extract piece id from intent; exit if not found
         Bundle args = getIntent().getExtras();
@@ -59,7 +75,9 @@ public class FeatureReviewActivity extends Activity implements
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             FeatureReviewFragment fragment = FeatureReviewFragment.newInstance(mPieceId);
-            getFragmentManager().beginTransaction()
+
+            // 25 Mar 2020 - AndroidX now uses getSupportFragmentManager() was getFragmentManager()
+            getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, fragment).commit();
         }
 

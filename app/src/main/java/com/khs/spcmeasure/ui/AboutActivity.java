@@ -1,6 +1,9 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+// 24 Mar 2020 - AndroidX
+// import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -18,7 +21,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends AppCompatActivity {
 
     private static final String TAG = "AboutActivity";
 

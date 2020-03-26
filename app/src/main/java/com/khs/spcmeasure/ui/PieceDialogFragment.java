@@ -1,9 +1,15 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+// 25 Mar 2020 - AndroidX
+// import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
+
+// 25 Mar 2020 - AndroidX
+// import android.app.DialogFragment;
+import androidx.fragment.app.DialogFragment;
+
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -46,9 +52,10 @@ public class PieceDialogFragment extends DialogFragment implements OnClickListen
 	public interface OnNewPieceListener {
 		public void onNewPieceCreated(Long pieceId);
 	}
-			
+
+	// 24 Mar 2020 - AndroidX
 	@Override
-	public void onAttach(Activity activity) {
+	public void onAttach(Context activity) {
 		super.onAttach(activity);
 		
 		// ensure host Activity implements the OnNewPieceListener interface
@@ -136,7 +143,8 @@ public class PieceDialogFragment extends DialogFragment implements OnClickListen
 		switch (v.getId()) {
 			case R.id.btnScan:
                 // scan
-                IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+				// 25 Mar 2020 - was using just 'this' now 'this.getActivity()'
+                IntentIntegrator scanIntegrator = new IntentIntegrator(this.getActivity());
                 scanIntegrator.addExtra("PROMPT_MESSAGE", "Scan Serial Number");
                 scanIntegrator.addExtra("SCAN_FORMATS", "CODE_39,CODE_128");    // code 3 of 9 and code 128 only
                 scanIntegrator.initiateScan();

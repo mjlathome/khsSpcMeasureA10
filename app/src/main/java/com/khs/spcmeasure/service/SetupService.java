@@ -56,7 +56,9 @@ public class SetupService extends IntentService {
     private static List<Long> canceledImportProdId = new ArrayList<Long>();
 
     // url address
-    private static final String url = "http://thor.kmx.cosma.com/spc/get_setup.php?";
+    // 26 Mar 2020 - fixed urls
+    // private static final String url = "http://thor.kmx.cosma.com/spc/get_setup.php?";
+    private static final String url = Globals.BASS_URL + "spc/get_setup.php?";
     private static final String querySep = "&";
     private static final String queryProdId = "prodId=";
 
@@ -163,7 +165,10 @@ public class SetupService extends IntentService {
                 JSONParser jParser = new JSONParser();
 
                 // get JSON from URL
-                JSONObject json = jParser.getJSONFromUrl(url + VersionUtils.getUrlQuery(this) + querySep + queryProdId + String.valueOf(setupId));
+                // 26 Mar 2020 - added getUrl debug
+                String getUrl = url + VersionUtils.getUrlQuery(this) + querySep + queryProdId + String.valueOf(setupId);
+                Log.d(TAG, "url: " + getUrl);
+                JSONObject json = jParser.getJSONFromUrl(getUrl);
 
                 Log.d(TAG, "json - " + json);
 

@@ -26,8 +26,10 @@ public class ProductLoader extends AsyncTaskLoader<List<Product>>{
 
 	// URL to get JSON Array
 	// TODO why hardcoded IP?
-	// private static String url = "http://192.168.0.111/karmax/spc/getAllProducts.php";	
-	private static String url = "http://thor.kmx.cosma.com/spc/get_products.php?";
+	// private static String url = "http://192.168.0.111/karmax/spc/getAllProducts.php";
+	// 26 Mar 2020 - fixed urls
+	// private static String url = "http://thor.kmx.cosma.com/spc/get_products.php?";
+	private static String url = Globals.BASS_URL + "spc/get_products.php?";
 
 	// callee context
 	private Context mContext;

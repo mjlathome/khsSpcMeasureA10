@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.khs.spcmeasure.Globals;
 import com.khs.spcmeasure.helper.DBAdapter;
 import com.khs.spcmeasure.entity.Feature;
 import com.khs.spcmeasure.entity.Limits;
@@ -23,7 +24,9 @@ public class ImportSetupTask extends AsyncTask<Long, String, JSONObject>{
 	
 	// private static String url = "http://192.168.0.111/karmax/spc/getSetupByProdId.php?prodId=";
 	// private static String url = "http://thor.kmx.cosma.com/spc/getSetupByProdId.php?prodId=";
-	private static String url = "http://thor.kmx.cosma.com/spc/get_setup.php?prodId=";
+	// 26 Mar 2020 - fixed urls
+	// private static String url = "http://thor.kmx.cosma.com/spc/get_setup.php?prodId=";
+	private static String url = Globals.BASS_URL + "spc/get_setup.php?prodId=";
     // private static String url = "http://10.35.33.58/spc/get_setup.php?prodId=";
 
 	//JSON Node Names
@@ -66,8 +69,9 @@ public class ImportSetupTask extends AsyncTask<Long, String, JSONObject>{
         Log.d(TAG, "DEBUG ImportSetup = " + String.valueOf(prodId));
 
 		JSONParser jParser = new JSONParser();
-		
+
 		// get JSON from URL
+		Log.d(TAG, "url: " + url);
 		JSONObject json = jParser.getJSONFromUrl(url + String.valueOf(prodId));
 		
 		return json;

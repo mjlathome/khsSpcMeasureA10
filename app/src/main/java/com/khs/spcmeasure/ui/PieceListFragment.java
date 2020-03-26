@@ -1,8 +1,17 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+
+// 24 Mar 2020 - AndroidX
+// import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.app.AlertDialog;
-import android.app.ListFragment;
+
+// 24 Mar 2020 - AndroidX
+// import android.app.ListFragment;
+import androidx.fragment.app.ListFragment;
+
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -38,7 +47,10 @@ import com.khs.spcmeasure.library.SecurityUtils;
 public class PieceListFragment extends ListFragment implements AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "PieceListFragment";
-    private static ListView mListView;
+
+    // 25 Mar 2020 - fix static lint warning
+    // private static ListView mListView;
+    private ListView mListView;
 
 	private Long mProdId;
 	
@@ -144,9 +156,12 @@ public class PieceListFragment extends ListFragment implements AdapterView.OnIte
         // refreshList(mCollStat);
 	}
 
+    // 24 Mar 2020 - AndroidX
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
+
+        // Activities containing this fragment must implement its callbacks
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -194,7 +209,8 @@ public class PieceListFragment extends ListFragment implements AdapterView.OnIte
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(long pieceId);
+        // 25 Mar 2020 - removed public modifier as redundant for interface methods
+        void onFragmentInteraction(long pieceId);
     }
 
 	@Override
@@ -225,14 +241,11 @@ public class PieceListFragment extends ListFragment implements AdapterView.OnIte
 		int id = item.getItemId();
 		Log.d(TAG, "menu = " + item.getTitle());
 
-        switch(id) {
-            case R.id.action_settings:
-                return true;
-            // TODO remove later as Action Spinner not used
-//            case R.id.mnuCollectStatus:
-//                return false;
-            default:
-                return super.onOptionsItemSelected(item);
+        // 25 Mar 2020 - replaced switch with if
+        if(id == R.id.action_settings) {
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
 
         // TODO old action menu - remove later

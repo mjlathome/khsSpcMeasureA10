@@ -1,6 +1,9 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+// 24 Mar 2020 - AndroidX
+// import android.app.Activity;
+
+import android.content.Context;
 import android.app.AlertDialog;
 
 // 23 Mar 2020 - AndroidX
@@ -29,6 +32,8 @@ import com.khs.spcmeasure.helper.DBAdapter;
 import com.khs.spcmeasure.library.SecurityUtils;
 import com.khs.spcmeasure.tasks.DeleteSetupTask;
 
+import java.util.Objects;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -40,15 +45,17 @@ public class SetupListFragment extends ListFragment {
 
     private static final String TAG = "SetupListFragment";
 
-    private static ListView mListView;
-
+    // 25 Mar 2020 - fix static lint warning
+    // private static ListView mListView;
+    private ListView mListView;
 
     private OnSetupListListener mListener;
 
     // TODO: Rename and change types of parameters
     public static SetupListFragment newInstance() {
-        SetupListFragment fragment = new SetupListFragment();
-        return fragment;
+        // 25 Mar 2002 - removed redundant local var
+        // SetupListFragment fragment = new SetupListFragment();
+        return new SetupListFragment();
     }
 
     /**
@@ -65,10 +72,12 @@ public class SetupListFragment extends ListFragment {
         setHasOptionsMenu(true);
     }
 
-
+    // 24 Mar 2020 - AndroidX
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
+
+        // Activities containing this fragment must implement its callbacks
         try {
             mListener = (OnSetupListListener) activity;
         } catch (ClassCastException e) {
@@ -123,14 +132,13 @@ public class SetupListFragment extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch(id) {
-            case R.id.mnuRefresh:
-                refreshList();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        // 25 Mar 2020 - replaced switch with if
+        if(id == R.id.mnuRefresh) {
+            refreshList();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
-
     }
 
     // inflate context menu options
@@ -138,8 +146,15 @@ public class SetupListFragment extends ListFragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.context_setup_list, menu);
+        // 25 Mar 2020 - added null try/catch and Objects.requireNonNull
+        try {
+            MenuInflater inflater = Objects.requireNonNull(getActivity()).getMenuInflater();
+            inflater.inflate(R.menu.context_setup_list, menu);
+        } catch (NullPointerException e) {
+            throw new NullPointerException(Objects.requireNonNull(getActivity()).toString()
+                    + " getMenuInflater() was NULL");
+        }
+
     }
 
     // handle context menu options
@@ -175,11 +190,13 @@ public class SetupListFragment extends ListFragment {
      */
     public interface OnSetupListListener {
         // TODO: Update argument type and name
-        public void onSetupSelected(Long prodId);
+        // 25 Mar 2020 - removed public modifier as redundant for interface methods
+        void onSetupSelected(Long prodId);
     }
 
     // handle Setup select
-    public void selectSetup(long id) {
+    // 25 Mar 2020 - made private was public
+    private void selectSetup(long id) {
 
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
@@ -189,7 +206,8 @@ public class SetupListFragment extends ListFragment {
     }
 
     // handle Setup delete
-    public void deleteSetup(int pos) {
+    // 25 Mar 2020 - made private was public
+    private void deleteSetup(int pos) {
 
         // check security
         if (!SecurityUtils.isSecurityOk(getActivity(), true)) {
@@ -215,8 +233,6 @@ public class SetupListFragment extends ListFragment {
         });
         dlgAlert.setNegativeButton(getString(R.string.text_cancel), null);
         dlgAlert.show();
-
-        return;
     }
 
     // refresh listview

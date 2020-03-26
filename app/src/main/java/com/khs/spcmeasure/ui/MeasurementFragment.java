@@ -1,10 +1,17 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+// 25 Mar 2020 - AndroidX
+// import android.app.Activity;
+import android.content.Context;
+
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+// 25 Mar 2020 - AndroidX
 import androidx.fragment.app.Fragment;
+
 import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -42,6 +49,7 @@ import com.khs.spcmeasure.entity.Product;
 import com.khs.spcmeasure.entity.SimpleCode;
 import com.khs.spcmeasure.library.AlertUtils;
 import com.khs.spcmeasure.library.CollectStatus;
+import com.khs.spcmeasure.library.ColourUtils;
 import com.khs.spcmeasure.library.CursorAdapterUtils;
 import com.khs.spcmeasure.helper.DBAdapter;
 import com.khs.spcmeasure.library.DateTimeUtils;
@@ -50,6 +58,7 @@ import com.khs.spcmeasure.library.SecurityUtils;
 import com.khs.spcmeasure.tasks.MeasurementTask;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 /**
  * A fragment representing a single Measurement detail screen.
@@ -57,6 +66,9 @@ import java.text.DecimalFormat;
 public class MeasurementFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "MeasurementFragment";
+
+    // 26 Mar 2020 fixed colours
+    private Context mContext;
 
     // id's
     private Long mPieceId;
@@ -210,11 +222,12 @@ public class MeasurementFragment extends Fragment implements AdapterView.OnItemS
     }
     //endregion
 
+    // 25 Mar 2020 - arg was Activity now Context
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         // TODO Auto-generated method stub
         super.onAttach(activity);
-
+        mContext = activity;
     }
 
     @Override
@@ -560,7 +573,9 @@ public class MeasurementFragment extends Fragment implements AdapterView.OnItemS
 
             mEdtMeasValue.setText(df.format(mMeasurement.getValue()));
             mTxtMeasRange.setText(df.format(mMeasurement.getRange()));
-            mImgInControl.setImageResource(mMeasurement.isInControl() ? R.drawable.ic_meas_in_control : R.drawable.ic_meas_out_control);
+            // 26 Mar 2020 fixed colours
+            // mImgInControl.setImageResource(mMeasurement.isInControl() ? R.drawable.ic_meas_in_control : R.drawable.ic_meas_out_control);
+            mImgInControl.setImageResource(mMeasurement.isInControl() ? R.drawable.baseline_thumb_up_white_24 : R.drawable.baseline_thumb_down_white_24);
 
             // display cause
             if (mMeasurement.getCause() != null) {
@@ -581,7 +596,16 @@ public class MeasurementFragment extends Fragment implements AdapterView.OnItemS
             mSpnMeasCause.setVisibility(mMeasurement.isInControl() ? View.INVISIBLE : View.VISIBLE);
 
         } else {
-            getView().setBackgroundColor(getResources().getColor(android.R.color.background_light));
+            // 26 Mar 2002 fixed colours
+            // getView().setBackgroundColor(getResources().getColor(android.R.color.background_light));
+            try {
+                // Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+                getView().setBackgroundColor(Color.parseColor(ColourUtils.getThemeColorInHex(mContext, "windowBackground", android.R.attr.windowBackground)));
+            } catch (NullPointerException e) {
+                throw new NullPointerException(this.toString()
+                        + " setBackgroundColor() was NULL");
+            }
+
             mEdtMeasValue.setText("");
             mTxtMeasRange.setText("");
             mImgInControl.setImageResource(R.drawable.ic_meas_unknown);
@@ -630,7 +654,8 @@ public class MeasurementFragment extends Fragment implements AdapterView.OnItemS
         mEdtMeasValue.setFocusable(true);
         mEdtMeasValue.setFocusableInTouchMode(true);
         // was: mEdtMeasValue.setKeyListener(DigitsKeyListener.getInstance("01234567890."));
-        mEdtMeasValue.setBackgroundResource(android.R.drawable.edit_text);
+        // 26 Mar 2020 fixed colours
+        // mEdtMeasValue.setBackgroundResource(android.R.drawable.edit_text);
         mEdtMeasValue.setHint(R.string.prompt_meas_value);
     }
 
@@ -640,7 +665,8 @@ public class MeasurementFragment extends Fragment implements AdapterView.OnItemS
         mEdtMeasValue.setFocusable(false);
         mEdtMeasValue.setFocusableInTouchMode(false);
         // was: mEdtMeasValue.setKeyListener(DigitsKeyListener.getInstance("01234567890.-"));
-        mEdtMeasValue.setBackgroundResource(android.R.color.transparent);
+        // 26 Mar 2020 fixed colours
+        // mEdtMeasValue.setBackgroundResource(android.R.color.transparent);
         mEdtMeasValue.setHint("");
         mEdtMeasValue.setTextColor(getResources().getColor(android.R.color.black));
     }

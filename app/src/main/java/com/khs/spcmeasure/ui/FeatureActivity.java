@@ -1,6 +1,11 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.ActionBar;
+// 25 Mar 2020 AndroidX
+// import android.app.ActionBar;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
@@ -21,6 +26,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+// 25 Mar 2020 AndroidX
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.PagerTabStrip;
 import androidx.viewpager.widget.ViewPager;
@@ -48,8 +55,9 @@ import com.khs.spcmeasure.service.SylvacBleService;
 
 import java.util.List;
 
-
-public class FeatureActivity extends FragmentActivity implements ActionBar.OnNavigationListener, ViewPager.OnPageChangeListener {
+// 26 Mar 2020 AndroidX - was FragmentActivity now AppCompatActivity see:
+// https://stackoverflow.com/questions/58300822/use-supportactionbar-with-androidx-fragmentactivity
+public class FeatureActivity extends AppCompatActivity implements ActionBar.OnNavigationListener, ViewPager.OnPageChangeListener {
 
     final static String TAG = "FeatureActivity";
 
@@ -243,7 +251,8 @@ public class FeatureActivity extends FragmentActivity implements ActionBar.OnNav
         }
 
         // Set up the action bar to show a dropdown list.
-        final ActionBar actionBar = getActionBar();
+        // 26 Mar 2020 AndroidX - was getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         // Show the Up button in the action bar.

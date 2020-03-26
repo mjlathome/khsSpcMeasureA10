@@ -2,7 +2,11 @@ package com.khs.spcmeasure.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListFragment;
+// 24 Mar 2020 - AndroidX
+// import android.app.ListFragment;
+import androidx.fragment.app.ListFragment;
+import android.content.Context;
+
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -294,8 +298,9 @@ public class FeatureReviewFragment extends ListFragment {
         // refreshList();
     }
 
+    // 24 Mar 2020 - AndroidX
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             mListener = (OnFragmentInteractionListener) activity;

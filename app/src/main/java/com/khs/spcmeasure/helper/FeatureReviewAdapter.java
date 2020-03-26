@@ -2,6 +2,7 @@ package com.khs.spcmeasure.helper;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,9 @@ import com.khs.spcmeasure.dao.PieceDao;
 import com.khs.spcmeasure.entity.Measurement;
 import com.khs.spcmeasure.entity.Piece;
 import com.khs.spcmeasure.helper.DBAdapter;
+
+// 26 Mar 2020 fixed colours
+import com.khs.spcmeasure.library.ColourUtils;
 
 /**
  * Created by Mark on 23/02/2015.
@@ -66,12 +70,19 @@ public class FeatureReviewAdapter extends CursorAdapter {
         // populate ListView image and set row colour according to Measurement in-control state
         if (meas != null) {
             // Log.d(TAG, "meas - isInCtrl = " + meas.isInControl());
-            ivInControl.setImageResource(meas.isInControl()? R.drawable.ic_meas_in_control : R.drawable.ic_meas_out_control);
+            // 26 Mar 2020 fixed colours
+            // ivInControl.setImageResource(meas.isInControl()? R.drawable.ic_meas_in_control : R.drawable.ic_meas_out_control);
+            ivInControl.setImageResource(meas.isInControl()? R.drawable.baseline_thumb_down_white_24 : R.drawable.baseline_thumb_up_white_24);
             view.setBackgroundColor(mContext.getResources().getColor(meas.isInControl()? R.color.measInControl : R.color.measOutControl));
         } else {
             // Log.d(TAG, "meas - null");
-            ivInControl.setImageResource(R.drawable.ic_meas_unknown);
-            view.setBackgroundColor(mContext.getResources().getColor(android.R.color.background_light));
+            // 26 Mar 2020 fixed colours
+            // ivInControl.setImageResource(R.drawable.ic_meas_unknown);
+            ivInControl.setImageResource(R.drawable.outline_help_outline_white_24);
+
+            // 26 Mar 2020 fixed colours
+            // view.setBackgroundColor(mContext.getResources().getColor(android.R.color.background_light));
+            view.setBackgroundColor(Color.parseColor(ColourUtils.getThemeColorInHex(mContext, "windowBackground", android.R.attr.windowBackground)));
         }
     }
 

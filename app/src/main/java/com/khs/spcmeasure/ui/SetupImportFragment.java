@@ -3,7 +3,6 @@
  */
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 
 // 23 Mar 2020 - AndroidX
@@ -14,7 +13,6 @@ import androidx.fragment.app.ListFragment;
 // 23 Mar 2020 - AndroidX
 // was: import android.app.LoaderManager;
 import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -67,8 +65,9 @@ public class SetupImportFragment extends ListFragment
     // If non-null, this is the current filter the user has provided.
     String mCurFilter;
 
+    // 25 Mar 2020 - arg was Activity now Context
 	@Override
-	public void onAttach(Activity activity) {		
+	public void onAttach(Context activity) {
 		super.onAttach(activity);
 	}
 	
@@ -103,8 +102,11 @@ public class SetupImportFragment extends ListFragment
         setListShown(false);
         
         // prepare the loader.  Either re-connect with an existing one, or start a new one.
-        getLoaderManager().initLoader(0, null, this).forceLoad();
-     	
+		// 25 Mar 2020 replaced deprecated getLoaderManager() with getInstance()
+        // getLoaderManager().initLoader(0, null, this).forceLoad();
+
+        LoaderManager.getInstance(this).initLoader(0, null, this).forceLoad();
+
         return;
 	}
 	

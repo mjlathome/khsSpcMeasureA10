@@ -23,7 +23,9 @@ public class CheckVersionTask extends AsyncTask<Void, Void, JSONObject>{
 	private OnCheckVersionListener mListener;
 
 	// constants
-	private static final String url = "http://thor.kmx.cosma.com/spc/check_version.php?";
+	// 26 Mar 2020 - fix urls
+	// private static final String url = "http://thor.kmx.cosma.com/spc/check_version.php?";
+	private static final String url = Globals.BASS_URL + "spc/check_version.php?";
     private static final String querySep = "&";
 
 	//JSON Node Names

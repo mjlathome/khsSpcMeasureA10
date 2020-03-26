@@ -1,8 +1,16 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+// 24 Mar 2020 - AndroidX
+// import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
+
+
 import android.app.AlertDialog;
-import android.app.FragmentManager;
+
+// 24 Mar 2020 - AndroidX
+// import android.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +23,11 @@ import android.widget.Toast;
 
 import com.khs.spcmeasure.R;
 import com.khs.spcmeasure.library.AlertUtils;
-import com.khs.spcmeasure.library.AlertUtils;
 import com.khs.spcmeasure.library.CollectStatus;
 import com.khs.spcmeasure.helper.DBAdapter;
 import com.khs.spcmeasure.library.SecurityUtils;
+
+import java.util.Objects;
 
 /**
  * An activity representing a single Piece detail screen. This activity is only
@@ -28,7 +37,7 @@ import com.khs.spcmeasure.library.SecurityUtils;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link PieceListFragment}.
  */
-public class PieceListActivity extends Activity implements
+public class PieceListActivity extends AppCompatActivity implements
         PieceListFragment.OnFragmentInteractionListener, PieceDialogFragment.OnNewPieceListener{
 
 	private static final String TAG = "PieceListActivity";
@@ -69,7 +78,19 @@ public class PieceListActivity extends Activity implements
 
 		// show the Up button in the action bar.
         // TODO is this required?
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+        // 25 Mar 2020 - AndroidX
+        // getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // 25 Mar 2020 - AndroidX
+        // added null try/catch and Objects.requireNonNull.
+        // now uses getSupportActionBar() was getActionBar()
+		// getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        } catch (NullPointerException e) {
+            throw new NullPointerException(this.toString()
+                    + " getSupportActionBar() was NULL");
+        }
 
         // extract intent arguments, if any
         getArguments(getIntent().getExtras());
@@ -100,7 +121,8 @@ public class PieceListActivity extends Activity implements
 			arguments.putLong(DBAdapter.KEY_PROD_ID, mProdId);
 			PieceListFragment fragment = new PieceListFragment();
 			fragment.setArguments(arguments);
-			getFragmentManager().beginTransaction()
+            // 25 Mar 2020 - AndroidX now uses getSupportFragmentManager() was getFragmentManager()
+			getSupportFragmentManager().beginTransaction()
 					.add(R.id.piece_list_container, fragment).commit();
 		}
 	}
@@ -272,15 +294,14 @@ public class PieceListActivity extends Activity implements
 
         try {
             // refresh list
-            PieceListFragment pieceListFrag = (PieceListFragment) getFragmentManager().findFragmentById(R.id.piece_list_container);
+            // 25 Mar 2020 - AndroidX now uses getSupportFragmentManager() was getFragmentManager()
+            PieceListFragment pieceListFrag = (PieceListFragment) getSupportFragmentManager().findFragmentById(R.id.piece_list_container);
             if (pieceListFrag != null) {
                 pieceListFrag.refreshList(collStat);
             }
         } catch(Exception e) {
             e.printStackTrace();
         }
-
-        return;
     }
 
     // handle Action Bar menu option: New Piece
@@ -300,10 +321,9 @@ public class PieceListActivity extends Activity implements
         myDialog.setArguments(args);
 
         // show dialog
-        FragmentManager fragMgr = getFragmentManager();
+        // 25 Mar 2020 - AndroidX now uses getSupportFragmentManager() was getFragmentManager()
+        FragmentManager fragMgr = getSupportFragmentManager();
         myDialog.show(fragMgr, "newPiece");
-
-        return;
     }
 
     // starts the measurement activity for the provided piece
@@ -317,7 +337,5 @@ public class PieceListActivity extends Activity implements
             featRevIntent.putExtra(DBAdapter.KEY_PIECE_ID, pieceId);
             startActivity(featRevIntent);
         }
-
-        return;
     }
 }

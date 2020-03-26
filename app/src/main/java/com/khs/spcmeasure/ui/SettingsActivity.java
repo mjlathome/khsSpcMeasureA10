@@ -1,15 +1,22 @@
 package com.khs.spcmeasure.ui;
 
-import android.app.Activity;
+// 25 Mar 2020 AndroidX
+// import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+
+import java.util.Objects;
 
 /**
  * Created by Mark on 07/04/2015.
  * used to define system preferences
  */
-public class SettingsActivity extends Activity {
+
+// 25 Mar 2020 AndroidX - was Activity now AppCompatActivity
+public class SettingsActivity extends AppCompatActivity {
     private final String TAG = "SettingsActivity";
 
     // preference keys
@@ -22,7 +29,16 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         // show the Up button in the action bar.
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        // 26 Mar 2020 - AndroidX
+        // added null try/catch and Objects.requireNonNull.
+        // now uses getSupportActionBar() was getActionBar()
+        // getActionBar().setDisplayHomeAsUpEnabled(true);
+        try {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        } catch (NullPointerException e) {
+            throw new NullPointerException(this.toString()
+                    + " getSupportActionBar() was NULL");
+        }
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()

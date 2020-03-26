@@ -61,8 +61,12 @@ public class MeasurementService extends IntentService {
     private static List<Long> canceledExport = new ArrayList<Long>();
 
     // url address
-    private static String urlExport = "http://thor.kmx.cosma.com/spc/save_measurements.php";
-    private static String urlImport = "http://thor.kmx.cosma.com/spc/get_measurements.php?";
+    // 26 Mar 2020 - fixed urls
+    // private static String urlExport = "http://thor.kmx.cosma.com/spc/save_measurements.php";
+    // private static String urlImport = "http://thor.kmx.cosma.com/spc/get_measurements.php?";
+    private static String urlExport = Globals.BASS_URL + "spc/save_measurements.php";
+    private static String urlImport = Globals.BASS_URL + "spc/get_measurements.php?";
+
     private static String querySep = "&";
     private static String queryProdId = "prodId=";
     private static String querySgId = "sgId=";

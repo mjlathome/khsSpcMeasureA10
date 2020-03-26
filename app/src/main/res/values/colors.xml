@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 26 Mar 2020 - fixed colours
     <color name="measInControl">#ACD372</color>
     <color name="measOutControl">#FFF467</color>
+    -->
+    <color name="measInControl">#006400</color>
+    <color name="measOutControl">#9B870C</color>
     <color name="chartBgColour">#FFFFFF</color>
     <color name="PagerTabStripText">#FFFFFF</color>
 </resources>
