@@ -66,9 +66,12 @@ public class FeatureActivity extends AppCompatActivity implements ActionBar.OnNa
 
     /// tab constants
     private static final int TAB_POS_MEASUREMENT = 0;
+    /* TODO 19 Jun 2020 bring back chart once fixed under Android compatibility
     private static final int TAB_POS_CHART_XBAR  = 1;
     private static final int TAB_POS_CHART_RANGE = 2;
     private static final int TAB_POS_INFORMATION = 3;
+     */
+    private static final int TAB_POS_INFORMATION = 1;
 
     // message constants
     private static final int MESSAGE_MOVE_NEXT = 0;
@@ -267,10 +270,17 @@ public class FeatureActivity extends AppCompatActivity implements ActionBar.OnNa
                         android.R.id.text1,
                         new String[]{
                                 getString(R.string.tab_title_measurement),
+                                getString(R.string.tab_title_information),
+                        }),
+                        /* TODO 19 Jun 2020 bring back chart once fixed under android compatibility
+                        new String[]{
+                                getString(R.string.tab_title_measurement),
                                 getString(R.string.tab_title_chart_xbar),
                                 getString(R.string.tab_title_chart_range),
                                 getString(R.string.tab_title_information),
                         }),
+                        */
+
                 this);
 
         // extract data
@@ -889,6 +899,7 @@ public class FeatureActivity extends AppCompatActivity implements ActionBar.OnNa
                     MeasurementFragment measFrag = new MeasurementFragment();
                     measFrag.setArguments(args);
                     return measFrag;
+                /* TODO 19 Jun 2020 add charts back in when issue with compatibility library is resolved
                 case TAB_POS_CHART_XBAR:
                 case TAB_POS_CHART_RANGE:
                     // create the chart fragment
@@ -903,6 +914,7 @@ public class FeatureActivity extends AppCompatActivity implements ActionBar.OnNa
                     ChartFragment chartFrag = new ChartFragment();
                     chartFrag.setArguments(args);
                     return chartFrag;
+                 */
                 case TAB_POS_INFORMATION:
                     // create the information fragment
                     args = new Bundle();

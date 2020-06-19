@@ -24,9 +24,14 @@ import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
+
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import android.os.Message;
 import android.util.Log;
 
 import com.khs.spcmeasure.library.ConnectionState;
@@ -65,7 +70,7 @@ import java.util.UUID;
 // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
 // use TargetApi to avoid errors when calling methods added in API higher than min build API
 @TargetApi(21)
-public class SylvacBleService extends Service {
+public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement later - implements Handler.Callback */ {
 	private static final String TAG = "SylvacBleService";
 
     // 17 Feb 2020 Bluetooth Gatt disconnect with status 133
@@ -100,6 +105,9 @@ public class SylvacBleService extends Service {
     private BluetoothLeScanner mBluetoothScanner;
 
     private Handler mHandler;
+
+    // 27 Mar 2020 fixed BLE
+    private Handler bleHandler;
     
     private NotificationManager mNotificationManager;
     
@@ -257,7 +265,36 @@ public class SylvacBleService extends Service {
 //	    return;
 	}
 
-	public class MyLocalBinder extends Binder {
+	/* TODO 19 Jun 2020 - uncomment and fix later
+	// 27 Mar 2020 fixed BLE
+    @Override
+    public boolean handleMessage(@NonNull Message msg) {
+        switch (msg.what) {
+            case MSG_DISCOVER_SERVICES:
+                BluetoothGatt gatt = ((BluetoothGatt) msg.obj);
+                gatt.discoverServices();
+                return true;
+            case MSG_SERVICES_DISCOVERED:
+                BluetoothGatt gatt = ((BluetoothGatt) msg.obj);
+                subscribeNotifications(gatt);
+                broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
+                return true;
+            case MSG_DATA_READ:
+                processDataReceived((byte[]) msg.obj);
+                return true;
+            case MSG_RECONNECT:
+                broadcastUpdate(ACTION_RECONNECT_DEVICE, deviceName);
+                return true;
+            case MSG_GATT_DISCONNECTED:
+                broadcastUpdate(ACTION_GATT_DISCONNECTED);
+                return true;
+            default:
+                return false;
+        }
+    }
+    */
+
+    public class MyLocalBinder extends Binder {
 		// allow bound component to obtain a reference to the Service for internal calls
 		public SylvacBleService getService() {
 			return SylvacBleService.this;
@@ -378,6 +415,20 @@ public class SylvacBleService extends Service {
         }
 
         return;
+    }
+
+    // 27 Mar 2020 - fixed BLE
+    //Create and start HandlerThread to handle GattCallbacks
+    /* TODO 19 Jun 2020 - uncomment and use later
+    public myGattCallback() {
+        HandlerThread handlerThread = new HandlerThread("BLE-Worker");
+        handlerThread.start();
+        bleHandler = new Handler(handlerThread.getLooper(), this);
+    }
+    */
+
+    public void dispose() {
+
     }
 
 	// Device scan callback.
