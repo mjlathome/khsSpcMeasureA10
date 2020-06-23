@@ -12,6 +12,7 @@
 
 # ensure AndroidPlot classes are not obfuscated
 # -keep class com.androidplot.** { *; }
+-keep class com.androidplot.** { *; }
 
 # remove debug error logging messages
 -assumenosideeffects class android.util.Log {

@@ -36,6 +36,7 @@ android {
 
 dependencies {
     implementation 'com.androidplot:androidplot-core:0.6.1'
+    // implementation "com.androidplot:androidplot-core:1.5.7"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'androidx.annotation:annotation:1.0.0'
