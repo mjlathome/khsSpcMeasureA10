@@ -469,8 +469,9 @@ public class FeatureActivity extends AppCompatActivity implements ActionBar.OnNa
         outState.putLong(DBAdapter.KEY_FEAT_ID, mFeatId);
 
         // serialize the current dropdown position.
+        // 23 Jun 2020 AndroidX - was getActionBar();
         outState.putInt(STATE_SELECTED_NAVIGATION_ITEM,
-                getActionBar().getSelectedNavigationIndex());
+                getSupportActionBar().getSelectedNavigationIndex());
     }
 
     // TODO remove later - enableMeasurement called when service is bound from OnStart call to bindBleService()

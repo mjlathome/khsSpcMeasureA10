@@ -72,7 +72,8 @@ public class FeatureReviewAdapter extends CursorAdapter {
             // Log.d(TAG, "meas - isInCtrl = " + meas.isInControl());
             // 26 Mar 2020 fixed colours
             // ivInControl.setImageResource(meas.isInControl()? R.drawable.ic_meas_in_control : R.drawable.ic_meas_out_control);
-            ivInControl.setImageResource(meas.isInControl()? R.drawable.baseline_thumb_down_white_24 : R.drawable.baseline_thumb_up_white_24);
+            // 23 Jun 2020 fixed in-control/out-of-control image icon - they were swapped
+            ivInControl.setImageResource(meas.isInControl()? R.drawable.baseline_thumb_up_white_24 : R.drawable.baseline_thumb_down_white_24);
             view.setBackgroundColor(mContext.getResources().getColor(meas.isInControl()? R.color.measInControl : R.color.measOutControl));
         } else {
             // Log.d(TAG, "meas - null");
