@@ -634,10 +634,9 @@ public class MeasurementFragment extends Fragment implements AdapterView.OnItemS
             } else {
                 // disableValue();
                 /* TODO 19 Jun 2020 - hide Get Value button for now until fixed under Android 6+
-                mBtnGetValue.setVisibility(View.VISIBLE);
-
-                */
                 mBtnGetValue.setVisibility(View.INVISIBLE);
+                */
+                mBtnGetValue.setVisibility(View.VISIBLE);
                 Log.d(TAG, "Gap Test - Disabled");
             }
 

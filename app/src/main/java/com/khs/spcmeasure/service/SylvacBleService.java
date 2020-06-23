@@ -418,7 +418,8 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
     }
 
     // 27 Mar 2020 - fixed BLE
-    //Create and start HandlerThread to handle GattCallbacks
+    // Create and start HandlerThread to handle GattCallbacks.  See:
+    // https://intersog.com/blog/how-to-work-properly-with-bt-le-on-android/
     /* TODO 19 Jun 2020 - uncomment and use later
     public myGattCallback() {
         HandlerThread handlerThread = new HandlerThread("BLE-Worker");
