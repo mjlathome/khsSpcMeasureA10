@@ -33,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
@@ -56,6 +57,7 @@ import static android.bluetooth.BluetoothDevice.BOND_BONDED;
 import static android.bluetooth.BluetoothDevice.BOND_BONDING;
 import static android.bluetooth.BluetoothDevice.BOND_NONE;
 import static android.bluetooth.BluetoothGatt.GATT_SUCCESS;
+import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_READ;
 
 // handle all Bluetooth Low Energy (BLE) communication
 // queues are now used for the write/read requests.  see:
@@ -67,7 +69,7 @@ import static android.bluetooth.BluetoothGatt.GATT_SUCCESS;
 // Cuz without that the measurements won't come through.
 // I'll take your Android App to another dimension,
 // I'll take your Android App to another dimension,
-// Pay close attention.
+// Pay close attention ...to Gatt Status and Bond State.
 //
 // 01 Jan 2020
 // The following methods were deprecated in API level 21:
@@ -95,6 +97,13 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
     private Queue<BluetoothGattCharacteristic> characteristicReadQueue = new LinkedList<BluetoothGattCharacteristic>();
     // TODO use queue of characteristic and the value written so that this can be correctly returned instead of mLastWrite
     private Queue<BluetoothGattCharacteristic> characteristicWriteQueue = new LinkedList<BluetoothGattCharacteristic>();
+
+    // 12 Jul 2020 - use Runnable queue for each BLE BluetoothGatt object see:
+    // https://medium.com/@martijn.van.welie/making-android-ble-work-part-3-117d3a8aee23
+    private Queue<Runnable> mCommandQueue = new LinkedList<>();
+    private boolean mCommandQueueBusy = false;
+    private int mCommandTries = 0;
+    private Handler mCommandHandler;
 
 	private static final String DEVICE_NAME_BONDED   = "SY";
     private static final String DEVICE_NAME_UNBONDED = "SY289";
@@ -183,7 +192,8 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
                 mMessageReceiver, new IntentFilter(SetupListActivity.SPC_MEASURE_CLOSE));
 
 		// create new handler for queuing runnables i.e. stopLeScan
-		mHandler = new Handler();
+		mHandler = new Handler(Looper.getMainLooper());
+		mCommandHandler = new Handler(Looper.getMainLooper());
 		
 		// extract notification manager
 		mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
@@ -591,7 +601,18 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
                 displayGattServices(gatt.getServices());
                 // TODO need to handle the response to this.  maybe ask favourite first too
                 // writeCharacteristic(COMMAND_SET_FAVOURITE_DATA_TRANSMISSION);
-                writeCharacteristic(COMMAND_GET_BATTERY_STATUS);
+                // Stops scanning after a pre-defined scan period.
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i(TAG, "onServicesDiscovered: - get battery status.  Delay = " + 1000);
+                        boolean result = writeCharacteristic(COMMAND_GET_BATTERY_STATUS);
+                        if (!result) {
+                            Log.e(TAG, "discoverServices failed to start");
+                        }
+                    }
+                }, 1000);
+
             } else {
                 Log.w(TAG, "onServicesDiscovered received: " + status);
             }
@@ -603,8 +624,10 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
             // 01 Jan 2020 remove comment does NOT fix Samsung Tab-A tablet get Error
             // super.onDescriptorWrite(gatt, descriptor, status);
 
+
             // pop the item that we just finishing writing
-            descriptorWriteQueue.remove();
+            // TODO 12 Jul 2020 - remove old queue code later
+            // descriptorWriteQueue.remove();
 
             Log.d(TAG, "Callback: GATT - " + gatt.getDevice());
             Log.d(TAG, "Callback: Descriptor - " + descriptor.getUuid());
@@ -621,17 +644,20 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
             }
 
             // dequeue next BLE command
-            dequeueBleCommand();
+            // TODO 12 Jul 2020 - remove old queue code later
+            // dequeueBleCommand();
+            completedCommand();
         }
 
         // result of a characteristic read operation
         @Override        
         public void onCharacteristicRead(BluetoothGatt gatt,
-                                         BluetoothGattCharacteristic characteristic,
+                                         final BluetoothGattCharacteristic characteristic,
                                          int status) {
 
             // pop the item that we just finishing reading
-            characteristicReadQueue.remove();
+            // TODO 12 Jul 2020 - remove old queue code later
+            // characteristicReadQueue.remove();
 
             if (status == GATT_SUCCESS) {
                 Log.i(TAG, "onCharacteristicRead GATT_SUCCESS: " + characteristic);
@@ -648,11 +674,13 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
                 }
             }
             else {
-                Log.d(TAG, "onCharacteristicRead error: " + status);
+                Log.e(TAG, "onCharacteristicRead error: " + status);
             }
 
             // dequeue next BLE command
-            dequeueBleCommand();
+            // TODO 12 Jul 2020 - remove old code later
+            //  dequeueBleCommand();
+            completedCommand();
         }
 
         // result of a characteristic read operation
@@ -684,7 +712,8 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
 
             // TODO only remove the last characteristic written once the result is obtained
             // pop the item that we just finishing writing
-            characteristicWriteQueue.remove();
+            // TODO 12 Jul 2020 - remove old code later
+            // characteristicWriteQueue.remove();
 
             if (status == GATT_SUCCESS) {
                 Log.i(TAG, "onCharacteristicWrite GATT_SUCCESS: " + status);
@@ -695,7 +724,9 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
             }
 
             // dequeue next BLE command
-            dequeueBleCommand();
+            // TODO 12 Jul 2020 - remove old code later
+            // dequeueBleCommand();
+            completedCommand();
         }
 
         @Override
@@ -850,7 +881,7 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
                 }
 
                 if(hasProperty(characteristic,
-                        BluetoothGattCharacteristic.PROPERTY_READ)) {
+                        PROPERTY_READ)) {
                     Log.d(TAG, "Found Read characteristic: " + characteristic.getUuid());
                     // TODO before queue - remove later
                     // mConnectedGatt.readCharacteristic(characteristic);
@@ -919,67 +950,200 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
     	return prop == property;
     }
 
-    // dequeue next BLE command
-    private boolean dequeueBleCommand() {
+    // 12 Jul 2020 - deQueue next BLE command see:
+    // https://medium.com/@martijn.van.welie/making-android-ble-work-part-3-117d3a8aee23
+    private void nextCommand() {
 
-        // handle asynchronous BLE callbacks via queues
-        // GIVE PRECEDENCE to descriptor writes.  They must all finish first?
-        if (descriptorWriteQueue.size() > 0) {
-            return mConnectedGatt.writeDescriptor(descriptorWriteQueue.element());
-        } else if (characteristicReadQueue.size() > 0) {
-            return mConnectedGatt.readCharacteristic(characteristicReadQueue.element());
-        } else if (characteristicWriteQueue.size() > 0) {
-            return mConnectedGatt.writeCharacteristic(characteristicWriteQueue.element());
-        } else {
-            return true;
+        Log.d(TAG, "nextCommand - mCommandQueueBusy: " + mCommandQueueBusy);
+        Log.d(TAG, "nextCommand - mCommandQueue.size(): " + mCommandQueue.size());
+
+        // exit if command already being executed
+        if (mCommandQueueBusy) {
+            return;
+        }
+
+        // check Bluetooth GATT connected
+        if (mConnectedGatt == null) {
+            Log.e(TAG, "nextCommand: lost Gatt connection");
+            mCommandQueue.clear();
+            mCommandQueueBusy = false;
+            return;
+        }
+
+        // execute next command from the queue
+        if (mCommandQueue.size() > 0) {
+            final Runnable bleCommand = mCommandQueue.peek();
+
+            if (bleCommand == null) {
+                Log.e(TAG, "nextCommand: BLE command is null");
+                mCommandQueue.clear();
+                mCommandQueueBusy = false;
+                return;
+            } else {
+                mCommandQueueBusy = true;
+                mCommandTries = 0;
+
+                mCommandHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            bleCommand.run();
+                        } catch (Exception ex) {
+                            Log.e(TAG, String.format("Command exception for device: %s", mConnectedGatt.getDevice().getName()), ex);
+                        }
+                    }
+                });
+            }
         }
     }
 
+    // 12 Jul 2020 - complete command by removing from BLE command queue see:
+    // https://medium.com/@martijn.van.welie/making-android-ble-work-part-3-117d3a8aee23
+    private void completedCommand() {
+        mCommandQueueBusy = false;
+        // mCommandRetrying = false;
+        // poll() - Retrieves and removes the head of this queue, or returns null if this queue is empty.
+        mCommandQueue.poll();
+        nextCommand();
+    }
+
+    // dequeue next BLE command
+    // TODO 12 Jul 2020 - old multi-queue method proir to Runnable queue see:
+    // https://medium.com/@martijn.van.welie/making-android-ble-work-part-3-117d3a8aee23
+//    private boolean dequeueBleCommand() {
+//
+//        // handle asynchronous BLE callbacks via queues
+//        // GIVE PRECEDENCE to descriptor writes.  They must all finish first?
+//        if (descriptorWriteQueue.size() > 0) {
+//            return mConnectedGatt.writeDescriptor(descriptorWriteQueue.element());
+//        } else if (characteristicReadQueue.size() > 0) {
+//            return mConnectedGatt.readCharacteristic(characteristicReadQueue.element());
+//        } else if (characteristicWriteQueue.size() > 0) {
+//            return mConnectedGatt.writeCharacteristic(characteristicWriteQueue.element());
+//        } else {
+//            return true;
+//        }
+//    }
+
     // queue Gatt Descriptor writes
-    private boolean writeGattDescriptor(BluetoothGattDescriptor d){
+    private boolean writeGattDescriptor(final BluetoothGattDescriptor d){
         boolean success = false;
 
         // check Bluetooth GATT connected
         if (mConnectedGatt == null) {
-            Log.e(TAG, "lost connection");
+            Log.e(TAG, "writeGattDescriptor - lost connection");
             return false;
         }
 
-        //put the descriptor into the write queue
-        success = descriptorWriteQueue.add(d);
-
-        // execute BLE command immediately if there is nothing else queued up
-        if((descriptorWriteQueue.size() == 1) && (characteristicReadQueue.size() == 0) && (characteristicWriteQueue.size() == 0)) {
-            return mConnectedGatt.writeDescriptor(d);
-        } else {
-            return success;
+        // check if descriptor is valid
+        if (d == null) {
+            Log.e(TAG, "writeGattDescriptor - descriptor is null");
+            return false;
         }
+
+        // 12 Jul 2020 now uses commandQueue of Runnables see:
+        // https://medium.com/@martijn.van.welie/making-android-ble-work-part-3-117d3a8aee23
+
+        // put the write gatt descriptor into the runnable queue
+        // enqueue the read command now validation is done
+        boolean result = mCommandQueue.add(new Runnable() {
+            @Override
+            public void run() {
+                if (!mConnectedGatt.writeDescriptor(d)) {
+                    Log.e(TAG, String.format("writeGattDescriptor failed for descriptor: %s", d.getUuid()));
+                    completedCommand();
+                } else {
+                    Log.d(TAG, String.format("writeGattDescriptor: %s", d.getUuid()) );
+                    mCommandTries++;
+                }
+            }
+        });
+
+        if(result) {
+            nextCommand();
+        } else {
+            Log.e(TAG, "writeGattDescriptor enqueue failed");
+        }
+
+        return result;
+
+        // TODO 12 Jul 2020 remove old queue code later
+//        //put the descriptor into the write queue
+//        success = descriptorWriteQueue.add(d);
+//
+//        // execute BLE command immediately if there is nothing else queued up
+//        if((descriptorWriteQueue.size() == 1) && (characteristicReadQueue.size() == 0) && (characteristicWriteQueue.size() == 0)) {
+//            return mConnectedGatt.writeDescriptor(d);
+//        } else {
+//            return success;
+//        }
     }
 
     // queue BLE characteristic writes
-    private boolean writeCharacteristic(BluetoothGattCharacteristic c) {
-        boolean success = false;
+    private boolean writeCharacteristic(final BluetoothGattCharacteristic c) {
+        // TODO 12 Jul 2020 remove old queue code later
+        // boolean success = false;
 
         // check Bluetooth GATT connected
         if (mConnectedGatt == null) {
-            Log.e(TAG, "lost connection");
+            Log.e(TAG, "writeCharacteristic - lost connection");
+            return false;
+        }
+
+        // check if characteristic is valid
+        if (c == null) {
+            Log.e(TAG, "writeCharacteristic - characteristic is null");
+            return false;
+        }
+
+        // check if commandQueue is valid
+        if (mCommandQueue == null) {
+            Log.e(TAG, "writeCharacteristic - mCommandQueue is null");
             return false;
         }
 
         // BluetoothGattService s = mBluetoothGatt.getService(UUID.fromString(kYourServiceUUIDString));
         // BluetoothGattCharacteristic c = s.getCharacteristic(UUID.fromString(characteristicName));
 
-        //put the characteristic into the read queue
-        success = characteristicWriteQueue.add(c);
-        Log.d(TAG, "characteristicWriteQueue.add - success: " + success);
+        // put the characteristic into the write queue
+        // TODO 12 Jul 2020 remove old queue code later
+        // success = characteristicWriteQueue.add(c);
+        // Log.d(TAG, "characteristicWriteQueue.add - success: " + success);
 
-        // execute BLE command immediately if there is nothing else queued up
-        if((descriptorWriteQueue.size() == 0) && (characteristicReadQueue.size() == 0) && (characteristicWriteQueue.size() == 1)) {
-            return mConnectedGatt.writeCharacteristic(c);
+        // 12 Jul 2020 now uses commandQueue of Runnables see:
+        // https://medium.com/@martijn.van.welie/making-android-ble-work-part-3-117d3a8aee23
+
+        // put the write characteristic into the runnable queue
+        // enqueue the write command now validation is done
+        boolean result = mCommandQueue.add(new Runnable() {
+            @Override
+            public void run() {
+                if (!mConnectedGatt.writeCharacteristic(c)) {
+                    Log.e(TAG, String.format("writeCharacteristic failed for characteristic: %s", c.getUuid()));
+                    completedCommand();
+                } else {
+                    Log.d(TAG, String.format("writeCharacteristic: %s", c.getUuid()) );
+                    mCommandTries++;
+                }
+            }
+        });
+
+        if(result) {
+            nextCommand();
+        } else {
+            Log.e(TAG, "writeGattDescriptor enqueue failed");
         }
-        else {
-            return success;
-        }
+
+        return result;
+
+        // TODO 12 Jul 2020 remove old queue code later
+//        // execute BLE command immediately if there is nothing else queued up
+//        if((descriptorWriteQueue.size() == 0) && (characteristicReadQueue.size() == 0) && (characteristicWriteQueue.size() == 1)) {
+//            return mConnectedGatt.writeCharacteristic(c);
+//        }
+//        else {
+//            return success;
+//        }
     }
 
     // allows bound application component to write to the Sylvac Ble request or command characteristic
@@ -1045,27 +1209,65 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
     }
 
     // queue BLE characteristic reads
-    private boolean readCharacteristic(BluetoothGattCharacteristic c) {
+    // 12 Jul 2020 - use Runnable queue see:
+    // https://medium.com/@martijn.van.welie/making-android-ble-work-part-3-117d3a8aee23
+    private boolean readCharacteristic(final BluetoothGattCharacteristic c) {
         boolean success = false;
 
         // check Bluetooth GATT connected
         if (mConnectedGatt == null) {
-            Log.e(TAG, "lost connection");
+            Log.e(TAG, "readCharacteristic - lost Gatt connection");
+            return false;
+        }
+
+        // check if characteristic is valid
+        if (c == null) {
+            Log.e(TAG, "Characteristic is null, ignoring readCharacteristic");
+            return false;
+        }
+
+        // check if characteristic has READ property
+        if ((c.getProperties() & PROPERTY_READ) == 0) {
+            Log.e(TAG, "Characteristic cannot be READ, ignoring readCharacteristic");
             return false;
         }
 
         // BluetoothGattService s = mBluetoothGatt.getService(UUID.fromString(kYourServiceUUIDString));
         // BluetoothGattCharacteristic c = s.getCharacteristic(UUID.fromString(characteristicName));
 
-        //put the characteristic into the read queue
-        success = characteristicReadQueue.add(c);
+        // put the characteristic into the read queue
+        // enqueue the read command now validation is done
+        boolean result = mCommandQueue.add(new Runnable() {
+            @Override
+            public void run() {
+                if (!mConnectedGatt.readCharacteristic(c)) {
+                    Log.e(TAG, String.format("readCharacteristic failed for characteristic: %s", c.getUuid()));
+                    completedCommand();
+                } else {
+                    Log.d(TAG, String.format("readCharacteristic: %s", c.getUuid()) );
+                    mCommandTries++;
+                }
+            }
+        });
 
-        // execute BLE command immediately if there is nothing else queued up
-        if((descriptorWriteQueue.size() == 0) && (characteristicReadQueue.size() == 1) && (characteristicWriteQueue.size() == 0)) {
-            return mConnectedGatt.readCharacteristic(c);
+        if(result) {
+            nextCommand();
         } else {
-            return success;
+            Log.e(TAG, "readCharacteristic enqueue failed");
         }
+
+        return result;
+
+        // TODO 12 Jul 2020 old code remove later
+//        success = characteristicReadQueue.add(c);
+//
+//        // execute BLE command immediately if there is nothing else queued up
+//        if((descriptorWriteQueue.size() == 0) && (characteristicReadQueue.size() == 1) && (characteristicWriteQueue.size() == 0)) {
+//            return mConnectedGatt.readCharacteristic(c);
+//        } else {
+//            return success;
+//        }
+
     }
 
     // allows bound application component to read from the Sylvac Ble request or command characteristic

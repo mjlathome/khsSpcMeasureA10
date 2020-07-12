@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.Log;
@@ -353,6 +354,10 @@ public class MeasurementFragment extends Fragment implements AdapterView.OnItemS
 
         // fix known bug with decimal point
         mEdtMeasValue.setFilters(new InputFilter[] { new DecimalInputFilter() });
+
+        // 12 Jul 2020 set signed numeric with decimal input type see:
+        // https://stackoverflow.com/questions/6919360/how-do-i-restrict-my-edittext-input-to-numerical-possibly-decimal-and-signed-i
+        mEdtMeasValue.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         try {
             // instantiate Dao's

@@ -112,6 +112,11 @@
             android:textSize="@dimen/text_huge"
             android:textStyle="bold" />
 
+        <!-- 12 Jul 2020 removed...
+        android:textAllCaps="true"
+        ... to fix logcat:
+        W/AllCapsTransformationMethod: Caller did not enable length changes; not transforming text
+        -->
         <EditText
             android:id="@+id/edtMeasValue"
             android:layout_width="wrap_content"
@@ -121,7 +126,6 @@
             android:layout_marginStart="@dimen/margin_small"
             android:text="@string/text_measurement"
             android:inputType="textCapCharacters|textNoSuggestions"
-            android:textAllCaps="true"
             android:maxLines="1"
             android:ems="5"
             android:textSize="@dimen/text_huge">
