@@ -686,8 +686,11 @@ public class MeasurementFragment extends Fragment implements AdapterView.OnItemS
     // hide keyboard input
     // see: http://stackoverflow.com/questions/24335223/edittext-swipes-out-of-visible-view-but-keyboard-remains
     public void hideInput() {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(mEdtMeasValue.getWindowToken(), 0);
+        // 12 Jul 2020 fix app crash when re-entering measurement activity adn getActivity is null
+        if (getActivity() != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mEdtMeasValue.getWindowToken(), 0);
+        }
     }
 
     // fix missing period for gaps

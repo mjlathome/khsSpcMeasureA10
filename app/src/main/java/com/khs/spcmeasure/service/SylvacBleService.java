@@ -15,7 +15,9 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +43,7 @@ import com.khs.spcmeasure.library.NotificationId;
 import com.khs.spcmeasure.ui.SetupListActivity;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -315,7 +318,31 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
         // 01 Jan 2020 needed due to Bluetooth deprecated methods in API level 21
         // get BluetoothLeScanner object for Bluetooth LE scan operations.
         if (mApiVersion > Build.VERSION_CODES.KITKAT) {
-            mBluetoothScanner.startScan(mScanCallback);
+            // 12 Jul 2020 now uses ScanFilter and ScanSettings see:
+            // https://medium.com/@martijn.van.welie/making-android-ble-work-part-1-a736dcd53b02
+
+            String[] names = new String[]{DEVICE_NAME_BONDED, DEVICE_NAME_UNBONDED};
+
+            List<ScanFilter> filters = null;
+            if(names != null) {
+                filters = new ArrayList<>();
+                for (String name : names) {
+                    ScanFilter filter = new ScanFilter.Builder().setDeviceName(name).build();
+                    filters.add(filter);
+                }
+            }
+
+            // 12 Jul 2020 commented out ScanSettings methods not available under Android 5.1 API 22 Lollipop see:
+            // https://source.android.com/setup/start/build-numbers
+            ScanSettings scanSettings = new ScanSettings.Builder()
+                    .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+                    // .setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES)
+                    // .setMatchMode(ScanSettings.MATCH_MODE_AGGRESSIVE)
+                    // .setNumOfMatches(ScanSettings.MATCH_NUM_ONE_ADVERTISEMENT)
+                    .setReportDelay(0L)
+                    .build();
+
+            mBluetoothScanner.startScan(filters, scanSettings, mScanCallback);
         } else {
             mBluetoothAdapter.startLeScan(mLeScanCallback);
         }

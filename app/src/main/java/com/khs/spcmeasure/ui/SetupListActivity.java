@@ -123,6 +123,24 @@ public class SetupListActivity extends AppCompatActivity implements SetupListFra
         // start Piece Service
         startService(new Intent(getBaseContext(), PieceService.class));
 
+        // 12 Jul 2020 moved version check to onStart
+//        // get globals for version info
+//        Globals g = Globals.getInstance();
+//
+//        if (!g.isVersionOk()) {
+//            // version not ok yet so force check version
+//            Intent intentChkUpd = new Intent(this, CheckUpdateActivity.class);
+//            intentChkUpd.putExtra(CheckUpdateActivity.KEY_EXIT_IF_OK, true);
+//            startActivityForResult(intentChkUpd, RESULT_CHECK_UPDATE);
+//        }
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d(TAG, "onStart: mAskLogin = " + mAskLogin);
+        super.onStart();
+
+        // 12 Jul 2020 moved version check to onStart
         // get globals for version info
         Globals g = Globals.getInstance();
 
@@ -132,26 +150,21 @@ public class SetupListActivity extends AppCompatActivity implements SetupListFra
             intentChkUpd.putExtra(CheckUpdateActivity.KEY_EXIT_IF_OK, true);
             startActivityForResult(intentChkUpd, RESULT_CHECK_UPDATE);
         }
-    }
 
-    @Override
-    protected void onStart() {
-        Log.d(TAG, "onStart: mAskLogin = " + mAskLogin);
-        super.onStart();
-
-        // get globals for version info
-        Globals g = Globals.getInstance();
-
-        if (g.isVersionOk()) {
-            // check if user should be asked to login
-            if (mAskLogin && !SecurityUtils.getIsLoggedIn(this)) {
-
-                mAskLogin = false;
-
-                // attempt login
-                SecurityUtils.doLogin(this);
-            }
-        }
+        // 12 Jul 2020 moved ask login to onActivityResult
+//        // get globals for version info
+//        Globals g = Globals.getInstance();
+//
+//        if (g.isVersionOk()) {
+//            // check if user should be asked to login
+//            if (mAskLogin && !SecurityUtils.getIsLoggedIn(this)) {
+//
+//                mAskLogin = false;
+//
+//                // attempt login
+//                SecurityUtils.doLogin(this);
+//            }
+//        }
     }
 
     @Override
@@ -231,25 +244,22 @@ public class SetupListActivity extends AppCompatActivity implements SetupListFra
                         mSetupListFrag.refreshList(prodId);
                     }
                     break;
-                // TODO remove later no handled in onStart
-//                case RESULT_CHECK_UPDATE:
-//                    // get globals for version info
-//                    Globals g = Globals.getInstance();
-//
-//                    if (g.isVersionOk()) {
-//                        // version ok, launch login if required
-//                        // check if user should be asked to login
-//                        if (!SecurityUtils.getIsLoggedIn(this)) {
-//
-//                            // initialize as logged out
-//                            SecurityUtils.setIsLoggedIn(this, false);
-//
-//                            // show login screen
-//                            Intent intentLogin = new Intent(this, LoginActivity.class);
-//                            startActivity(intentLogin);
-//                        }
-//                    }
-//                    break;
+                // 12 Jul 2020 moved ask login to onActivityResult
+                case RESULT_CHECK_UPDATE:
+                    // get globals for version info
+                    Globals g = Globals.getInstance();
+
+                    if (g.isVersionOk()) {
+                        // check if user should be asked to login
+                        if (mAskLogin && !SecurityUtils.getIsLoggedIn(this)) {
+
+                            mAskLogin = false;
+
+                            // attempt login
+                            SecurityUtils.doLogin(this);
+                        }
+                    }
+                    break;
             }
         }
     }
