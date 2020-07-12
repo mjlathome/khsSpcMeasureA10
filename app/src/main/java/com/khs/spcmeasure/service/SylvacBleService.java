@@ -50,6 +50,13 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.UUID;
 
+// 12 Jul 2020 handle GATT status and Bond State see:
+// https://medium.com/@martijn.van.welie/making-android-ble-work-part-2-47a3cdaade07
+import static android.bluetooth.BluetoothDevice.BOND_BONDED;
+import static android.bluetooth.BluetoothDevice.BOND_BONDING;
+import static android.bluetooth.BluetoothDevice.BOND_NONE;
+import static android.bluetooth.BluetoothGatt.GATT_SUCCESS;
+
 // handle all Bluetooth Low Energy (BLE) communication
 // queues are now used for the write/read requests.  see:
 // http://stackoverflow.com/questions/17910322/android-ble-api-gatt-notification-not-received
@@ -496,29 +503,68 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
      */
     private BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
         @Override
-        public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+        public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
 
+            // 12 Jul 2020 handle GATT status see:
+            // https://medium.com/@martijn.van.welie/making-android-ble-work-part-2-47a3cdaade07
+            Log.d(TAG, "onConnectionStateChange - status = " + status);
             Log.d(TAG, "onConnectionStateChange - newState = " + newState);
 
-            switch(newState) {
-                case BluetoothProfile.STATE_CONNECTED:
-                    Log.i(TAG, "gattCallback - STATE_CONNECTED");
-                    mConnectionState = ConnectionState.CONNECTED;
-                    gatt.discoverServices();
-                    break;
-                case BluetoothProfile.STATE_DISCONNECTED:
-                    Log.i(TAG, "gattCallback - STATE_DISCONNECTED");
+            if (status == GATT_SUCCESS) {
+                // 12 Jul 2020 - handle GATT success
+                switch (newState) {
+                    case BluetoothProfile.STATE_CONNECTED:
+                        Log.i(TAG, "gattCallback - STATE_CONNECTED");
+                        mConnectionState = ConnectionState.CONNECTED;
 
-                    mConnectionState = ConnectionState.DISCONNECTED;
-                    // disconnect gatt called earlier
-                    // mConnectedGatt = disconnectGatt(gatt);
+                        // 12 Jul 2020 - handle bond state see:
+                        // https://medium.com/@martijn.van.welie/making-android-ble-work-part-2-47a3cdaade07
+                        BluetoothDevice device = gatt.getDevice();
+                        int bondState = device.getBondState();
 
-                    // TODO see Google bug:
-                    // http://stackoverflow.com/questions/29758890/bluetooth-gatt-callback-not-working-with-new-api-for-lollipop
-                    gatt.close();
-                    break;
-                default:
-                    Log.e(TAG, "gattCallback - STATE_OTHER");
+                        // take action depending upon bond state
+                        if (bondState == BOND_NONE || bondState == BOND_BONDED) {
+                            // connected to device, now proceed to discover it's services, but delay a bit if needed
+                            int delayWhenBonded = 0;
+                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
+                                delayWhenBonded = 1000;
+                            }
+                            final int delay = (bondState == BOND_BONDED ? delayWhenBonded : 0);
+
+                            // Stops scanning after a pre-defined scan period.
+                            mHandler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.i(TAG, "discovering GATT services.  Delay = " + delay);
+                                    boolean result = gatt.discoverServices();
+                                    if (!result) {
+                                        Log.e(TAG, "discoverServices failed to start");
+                                    }
+                                }
+                            }, delay);
+                        } else if (bondState == BOND_BONDING) {
+                            Log.i(TAG, "waiting for bonding to complete");
+                        }
+
+                        break;
+                    case BluetoothProfile.STATE_DISCONNECTED:
+                        Log.i(TAG, "gattCallback - STATE_DISCONNECTED");
+
+                        mConnectionState = ConnectionState.DISCONNECTED;
+                        // disconnect gatt called earlier
+                        // mConnectedGatt = disconnectGatt(gatt);
+
+                        // TODO see Google bug:
+                        // http://stackoverflow.com/questions/29758890/bluetooth-gatt-callback-not-working-with-new-api-for-lollipop
+                        gatt.close();
+                        break;
+                    default:
+                        Log.e(TAG, "gattCallback - STATE_OTHER");
+                }
+            } else {
+                // 12 Jul 2020 - handle GATT failure
+                mConnectionState = ConnectionState.DISCONNECTED;
+                gatt.close();
             }
 
             // TODO old code remove later
@@ -539,7 +585,7 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
         // new services discovered
         @Override        
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-            if (status == BluetoothGatt.GATT_SUCCESS) {
+            if (status == GATT_SUCCESS) {
                 Log.i(TAG, "onServicesDiscovered GATT_SUCCESS: " + status);
                 Log.d(TAG, "onServicesDiscovered Services = " + gatt.getServices());
                 displayGattServices(gatt.getServices());
@@ -563,7 +609,7 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
             Log.d(TAG, "Callback: GATT - " + gatt.getDevice());
             Log.d(TAG, "Callback: Descriptor - " + descriptor.getUuid());
 
-            if (status == BluetoothGatt.GATT_SUCCESS) {
+            if (status == GATT_SUCCESS) {
                 Log.d(TAG, "Callback: Wrote GATT Descriptor successfully.");
             }
             else{
@@ -587,7 +633,7 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
             // pop the item that we just finishing reading
             characteristicReadQueue.remove();
 
-            if (status == BluetoothGatt.GATT_SUCCESS) {
+            if (status == GATT_SUCCESS) {
                 Log.i(TAG, "onCharacteristicRead GATT_SUCCESS: " + characteristic);
                 Log.d(TAG, "onCharacteristicRead UUID = " + characteristic.getUuid());
 
@@ -640,7 +686,7 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
             // pop the item that we just finishing writing
             characteristicWriteQueue.remove();
 
-            if (status == BluetoothGatt.GATT_SUCCESS) {
+            if (status == GATT_SUCCESS) {
                 Log.i(TAG, "onCharacteristicWrite GATT_SUCCESS: " + status);
                 Log.d(TAG, "onCharacteristicWrite UUID = " + characteristic.getUuid());
                 Log.i(TAG, "onCharacteristicWrite Char Value = " + characteristic.getValue().toString());
