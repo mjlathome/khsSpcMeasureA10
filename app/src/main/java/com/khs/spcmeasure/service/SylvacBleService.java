@@ -105,6 +105,9 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
     private int mCommandTries = 0;
     private Handler mCommandHandler;
 
+    // 27 Aug 2020 - sylvac found
+    private boolean mSylacFound = false;
+
 	private static final String DEVICE_NAME_BONDED   = "SY";
     private static final String DEVICE_NAME_UNBONDED = "SY289";
 	
@@ -314,6 +317,15 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
     }
     */
 
+	// 27 Aug 2020 - added clear command queue
+	private void clearCommandQueue() {
+        Log.d(TAG, "clearCommandQueue - mCommandQueueBusy: " + mCommandQueueBusy);
+        Log.d(TAG, "clearCommandQueue - mCommandQueue.size(): " + mCommandQueue.size());
+
+        mCommandQueue.clear();
+        mCommandQueueBusy = false;
+    }
+
     public class MyLocalBinder extends Binder {
 		// allow bound component to obtain a reference to the Service for internal calls
 		public SylvacBleService getService() {
@@ -326,6 +338,9 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
 	private void startScanLeDevice() {
         // does not work correctly
         // UUID[] uuidService = { UUID.fromString(SylvacGattAttributes.DATA_RECEIVED_FROM_INSTRUMENT) };
+
+        // 27 Aug 2020 - handle duplicate scan results
+        mSylacFound = false;
 
         mScanning = true;
 //            if (mBluetoothAdapter == null) {
@@ -421,13 +436,22 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
             // check whether device name is for Sylvac device
             String name = device.getName();
             Log.d(TAG, "device name = " + name);
+            Log.d(TAG, "mSylacFound = " + mSylacFound);
 
             // ignore null
             if (name == null) {
                 return;
             }
 
+            // 27 Aug 2020 - handle duplicate scan results
+            if (mSylacFound == true) {
+                return;
+            }
+
             if (name.equals(DEVICE_NAME_BONDED) || name.equals(DEVICE_NAME_UNBONDED)) {
+                // 27 Aug 2020 - handle duplicate scan results
+                mSylacFound = true;
+
                 // TODO comment out later on
 //                    Log.d(TAG, "fetch = " + device.fetchUuidsWithSdp());
 //                    Log.d(TAG, "UUID = " + device.getUuids());
@@ -615,6 +639,9 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
 
             } else {
                 Log.w(TAG, "onServicesDiscovered received: " + status);
+
+                // 27 Aug 2020 - services not discovered so disconnect
+                disconnectDevice();
             }
         }
 
@@ -836,6 +863,9 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
         // ensure Ble resources are released
         mConnectedGatt = disconnectGatt(mConnectedGatt);
 
+        // 27 Aug 2020 - handle duplicate scan results
+        mSylacFound = false;
+
         // TODO old code remove later
 //        if (mConnectedGatt != null) {
 //            // close gatt connection
@@ -859,6 +889,9 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
         descriptorWriteQueue.clear();
         characteristicReadQueue.clear();
         characteristicWriteQueue.clear();
+
+        // 27 Aug 2020 - clear command queue
+        clearCommandQueue();
 
         for (BluetoothGattService service : gattServices) {
             Log.d(TAG, "Found service: " + service.getUuid());
@@ -957,16 +990,17 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
         Log.d(TAG, "nextCommand - mCommandQueueBusy: " + mCommandQueueBusy);
         Log.d(TAG, "nextCommand - mCommandQueue.size(): " + mCommandQueue.size());
 
-        // exit if command already being executed
-        if (mCommandQueueBusy) {
+        // check Bluetooth GATT connected
+        // 27 Aug 2020 - clear queue if GATT disconnected
+        if (mConnectedGatt == null) {
+            Log.e(TAG, "nextCommand: lost Gatt connection");
+            // 27 Aug 2020 clear command queue
+            clearCommandQueue();
             return;
         }
 
-        // check Bluetooth GATT connected
-        if (mConnectedGatt == null) {
-            Log.e(TAG, "nextCommand: lost Gatt connection");
-            mCommandQueue.clear();
-            mCommandQueueBusy = false;
+        // exit if command already being executed
+        if (mCommandQueueBusy) {
             return;
         }
 
@@ -976,8 +1010,8 @@ public class SylvacBleService extends Service /* TODO 19 Jun 2020 implement late
 
             if (bleCommand == null) {
                 Log.e(TAG, "nextCommand: BLE command is null");
-                mCommandQueue.clear();
-                mCommandQueueBusy = false;
+                // 27 Aug 2020 clear command queue
+                clearCommandQueue();
                 return;
             } else {
                 mCommandQueueBusy = true;
