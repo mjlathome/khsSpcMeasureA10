@@ -132,8 +132,6 @@
 
     <!-- Feature Activity - Tab titles -->
     <string name="tab_title_measurement">Measurement</string>
-    <string name="tab_title_chart_xbar">Chart XBar</string>
-    <string name="tab_title_chart_range">Chart Range</string>
     <string name="tab_title_information">Information</string>
 
     <string name="first">First</string>

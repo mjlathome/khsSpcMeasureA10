@@ -2,26 +2,24 @@ package com.khs.spcmeasure.library;
 
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class JSONParser {
 	
 	private static final String TAG = "JSONParser";
+	private static int TIMEOUT = 60 * 1000;
 	
 	// was TODO:
 //	static InputStream is = null;
@@ -32,34 +30,31 @@ public class JSONParser {
 	public JSONParser() {		
 	}
 	
-	public JSONObject getJSONFromUrl(String url) {		
+	public JSONObject getJSONFromUrl(String url) {
+		// 2020Dec28 - declare connection
+		HttpURLConnection c = null;
 		JSONObject jObj = null;
 		
 		// http request
 		try {
-			// make http GET request
-			DefaultHttpClient httpClient = new DefaultHttpClient();
-			// was: HttpPost httpPost = new HttpPost(url);
-			HttpGet httpGet = new HttpGet(url);		
-			HttpResponse httpResponse = httpClient.execute( /* was: httpPost */ httpGet);
-			Log.d(TAG, "httpResp - status = " +  httpResponse.getStatusLine());
-								
-			jObj = getJSONFromResponse(httpResponse);
+			// 2020Dec28 - create url
+			URL u = new URL(url);
 
-			// TODO was:
-			// extract json string from response, if valid
-//			if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-//				HttpEntity httpEntity = httpResponse.getEntity();
-//				Log.d(TAG, "httpEnt - length = " +  httpEntity.getContentLength());			
-//				// Log.d(TAG, "httpEnt - string = " +  EntityUtils.toString(httpEntity, HTTP.UTF_8));
-//				json = EntityUtils.toString(httpEntity, HTTP.UTF_8);
-//						
-//				// is = httpEntity.getContent();
-//			}
-			
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
+			// 2020Dec28 - open connection
+			c = (HttpURLConnection) u.openConnection();
+
+			// 2020Dec28 - specify GET request
+			c.setRequestMethod("GET");
+			c.setRequestProperty("Content-length", "0");
+			c.setUseCaches(false);
+			c.setAllowUserInteraction(false);
+			c.setConnectTimeout(TIMEOUT);
+			c.setReadTimeout(TIMEOUT);
+
+			// 2020Dec28 - get JSON response from Http request
+			jObj = getJSONFromResponse(c);
+
+		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -92,53 +87,86 @@ public class JSONParser {
 	}
 	
 	public JSONObject getJSONFromUrl(String url, String body) {
+		// 2020Dec28 - declare connection
+		HttpURLConnection con = null;
 		JSONObject jObj = null;
 		
 		Log.d(TAG, "body = " + body);
 		
 		// make http POST request with String body
 		try {
-			DefaultHttpClient httpClient = new DefaultHttpClient();
-			
-			HttpPost httpPost = new HttpPost(url);
-			// TODO hard code this here... maybe method name should be changed
-			httpPost.addHeader(new BasicHeader("Content-Type", "application/json"));
-			httpPost.setEntity(new StringEntity(body));
-			
-			HttpResponse httpResponse = httpClient.execute(httpPost);			
-			jObj = getJSONFromResponse(httpResponse);			
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
+			// 2020Dec28 - create url
+			URL u = new URL(url);
+
+			// 2020Dec28 - open connection
+			con = (HttpURLConnection) u.openConnection();
+
+			// 2020Dec28 - specify POST request.  See:
+			// https://blog.codavel.com/how-to-integrate-httpurlconnection
+			// https://www.baeldung.com/httpurlconnection-post
+			// https://stackoverflow.com/questions/37795759/httpurlconnection-illegal-state-exception-already-connected
+
+			con.setRequestMethod("POST");
+			con.setRequestProperty("Content-Type", "application/json; utf-8");
+			con.setRequestProperty("Accept", "application/json");
+			con.setUseCaches(false);
+			con.setAllowUserInteraction(false);
+			con.setConnectTimeout(TIMEOUT);
+			con.setReadTimeout(TIMEOUT);
+
+			//
+			con.setDoOutput(true);
+
+			OutputStream os = con.getOutputStream();
+			byte[] input = body.getBytes("utf-8");
+			os.write(input, 0, input.length);
+
+			// 2020Dec28 - get JSON response from Http request
+			jObj = getJSONFromResponse(con);
+		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		return jObj;		
-	}	
-	
-	// extracts json from http response 
-	private JSONObject getJSONFromResponse(HttpResponse httpResp) {
+	}
+
+	// 2020Dec28 - extracts json from http connection
+	private JSONObject getJSONFromResponse(HttpURLConnection httpCon) {
 		JSONObject jObj = null;
-		
+
 		// extract json from response body
 		try {
+			// Log.d(TAG, "httpResp - status(1) = " +  httpCon.getResponseCode());
 			String jStr = "";
-			if (httpResp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				HttpEntity httpEntity = httpResp.getEntity();
-				Log.d(TAG, "httpEnt - length = " +  httpEntity.getContentLength());			
-				jStr = EntityUtils.toString(httpEntity, HTTP.UTF_8);										
-				jObj = new JSONObject(jStr);
-			}					
+			httpCon.connect();
+
+			// Log.d(TAG, "httpResp - status(2) = " +  httpCon.getResponseCode());
+
+			if (httpCon.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				// 2020Dec28 - get response as a String
+				BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while ((line = br.readLine()) != null) {
+					sb.append(line+"\n");
+				}
+				br.close();
+
+				// 2020Dec28 - get response as JSON
+				jObj = new JSONObject(sb.toString());
+			}
 		} catch (IOException e) {
-				e.printStackTrace();
+			e.printStackTrace();
 		} catch (JSONException e) {
 			Log.e(TAG, "getJSONFromResponse - Error parsing data " + e.toString());
+		} finally {
+			httpCon.disconnect();
 		}
-		
+
 		return jObj;
 	}
-	
+
 }
 

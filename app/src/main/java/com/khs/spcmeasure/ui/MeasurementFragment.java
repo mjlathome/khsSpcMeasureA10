@@ -382,7 +382,11 @@ public class MeasurementFragment extends Fragment implements AdapterView.OnItemS
             mEdtMeasValue.setOnEditorActionListener(new EditText.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    Log.d(TAG, "actionId = " + actionId);
+                    // 2020Dec28 - handle EditorInfo.IME_ACTION_UNSPECIFIED returned whe using
+                    // Flexbar BLE Indicator Model# 15835
+                    if (actionId == EditorInfo.IME_ACTION_DONE  ||
+                    actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
                         Log.d(TAG, "Meas Value: DONE");
 
                         // get double and set value if not null
